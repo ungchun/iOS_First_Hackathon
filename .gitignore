@@ -10,7 +10,7 @@
 Pods/
 
 ## APIKEY
-WeatherInfo.plist
+*.xcconfig
 
 ### Swift ###
 # Xcode
