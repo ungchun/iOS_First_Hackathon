@@ -1,4 +1,5 @@
 import UIKit
+import RealmSwift
 
 final class PageViewController: UIViewController {
     
@@ -41,7 +42,7 @@ final class PageViewController: UIViewController {
         pageControl.currentPageIndicatorTintColor = .white
         pageControl.pageIndicatorTintColor = .white.withAlphaComponent(0.3)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.numberOfPages = 3
+//        pageControl.numberOfPages = 3
         pageControl.currentPage = 0
         return pageControl
     }()
@@ -56,12 +57,22 @@ final class PageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let region = Region()
+//        region.name = "daegu"
+//
+//        RealmManager.shared.create(region)
+        print("??? \(RealmManager.shared.realm.objects(Region.self))")
+
         if let firstVC = dataViewControllers.first {
             pageViewController.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
         
         configure()
         setupDelegate()
+        
+        pageControl.numberOfPages = RealmManager.shared.realm.objects(Region.self).count
+        
+        print("RealmManager.shared.realm.objects(Region.self).count \(RealmManager.shared.realm.objects(Region.self).count)")
         
         let pageControl = UIBarButtonItem(customView: pageControl)
         

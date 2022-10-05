@@ -25,6 +25,8 @@
 		BCECB60128ED69C40004F9F7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60028ED69C40004F9F7 /* DetailView.swift */; };
 		BCECB60328ED69E10004F9F7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60228ED69E10004F9F7 /* DetailViewController.swift */; };
 		BCECB60528ED720A0004F9F7 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60428ED720A0004F9F7 /* PageViewController.swift */; };
+		BCECB60828EDA9C30004F9F7 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60728EDA9C30004F9F7 /* RealmManager.swift */; };
+		BCECB60A28EDA9F90004F9F7 /* RealmRegionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60928EDA9F90004F9F7 /* RealmRegionInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		BCECB60028ED69C40004F9F7 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		BCECB60228ED69E10004F9F7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BCECB60428ED720A0004F9F7 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		BCECB60728EDA9C30004F9F7 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		BCECB60928EDA9F90004F9F7 /* RealmRegionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRegionInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 		BCECB5CA28ED40D30004F9F7 /* iOS_First_Hackathon */ = {
 			isa = PBXGroup;
 			children = (
+				BCECB60628EDA9B60004F9F7 /* Service */,
 				BCECB5DF28ED474B0004F9F7 /* Model */,
 				BCECB5E028ED47500004F9F7 /* View */,
 				BCECB5E128ED47550004F9F7 /* Controller */,
@@ -99,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				BCECB5FD28ED58D00004F9F7 /* UserInfo.swift */,
+				BCECB60928EDA9F90004F9F7 /* RealmRegionInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -137,6 +143,14 @@
 				BCECB60028ED69C40004F9F7 /* DetailView.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		BCECB60628EDA9B60004F9F7 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				BCECB60728EDA9C30004F9F7 /* RealmManager.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,7 +246,9 @@
 				BCECB5CE28ED40D30004F9F7 /* SceneDelegate.swift in Sources */,
 				BCECB5FE28ED58D00004F9F7 /* UserInfo.swift in Sources */,
 				BCECB60528ED720A0004F9F7 /* PageViewController.swift in Sources */,
+				BCECB60828EDA9C30004F9F7 /* RealmManager.swift in Sources */,
 				BCECB5FA28ED53130004F9F7 /* SplashViewController.swift in Sources */,
+				BCECB60A28EDA9F90004F9F7 /* RealmRegionInfo.swift in Sources */,
 				BCECB60328ED69E10004F9F7 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
