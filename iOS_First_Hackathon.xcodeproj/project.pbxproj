@@ -22,6 +22,7 @@
 		BCECB5D428ED40D40004F9F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCECB5D728ED40D40004F9F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCECB5D928ED40D40004F9F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCECB5E428ED482B0004F9F7 /* WeatherAPIKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = WeatherAPIKey.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +55,39 @@
 		BCECB5CA28ED40D30004F9F7 /* iOS_First_Hackathon */ = {
 			isa = PBXGroup;
 			children = (
+				BCECB5E128ED47550004F9F7 /* Controller */,
+				BCECB5E028ED47500004F9F7 /* View */,
+				BCECB5DF28ED474B0004F9F7 /* Model */,
 				BCECB5CB28ED40D30004F9F7 /* AppDelegate.swift */,
 				BCECB5CD28ED40D30004F9F7 /* SceneDelegate.swift */,
-				BCECB5CF28ED40D30004F9F7 /* ViewController.swift */,
 				BCECB5D428ED40D40004F9F7 /* Assets.xcassets */,
 				BCECB5D628ED40D40004F9F7 /* LaunchScreen.storyboard */,
 				BCECB5D928ED40D40004F9F7 /* Info.plist */,
+				BCECB5E428ED482B0004F9F7 /* WeatherAPIKey.xcconfig */,
 			);
 			path = iOS_First_Hackathon;
+			sourceTree = "<group>";
+		};
+		BCECB5DF28ED474B0004F9F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BCECB5E028ED47500004F9F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BCECB5E128ED47550004F9F7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BCECB5CF28ED40D30004F9F7 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +296,7 @@
 		};
 		BCECB5DD28ED40D40004F9F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCECB5E428ED482B0004F9F7 /* WeatherAPIKey.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -298,6 +325,7 @@
 		};
 		BCECB5DE28ED40D40004F9F7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCECB5E428ED482B0004F9F7 /* WeatherAPIKey.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
