@@ -9,20 +9,38 @@
 /* Begin PBXBuildFile section */
 		BCECB5CC28ED40D30004F9F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5CB28ED40D30004F9F7 /* AppDelegate.swift */; };
 		BCECB5CE28ED40D30004F9F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5CD28ED40D30004F9F7 /* SceneDelegate.swift */; };
-		BCECB5D028ED40D30004F9F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5CF28ED40D30004F9F7 /* ViewController.swift */; };
+		BCECB5D028ED40D30004F9F7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5CF28ED40D30004F9F7 /* ListViewController.swift */; };
 		BCECB5D528ED40D40004F9F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCECB5D428ED40D40004F9F7 /* Assets.xcassets */; };
 		BCECB5D828ED40D40004F9F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCECB5D628ED40D40004F9F7 /* LaunchScreen.storyboard */; };
+		BCECB5E728ED4D940004F9F7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCECB5E628ED4D940004F9F7 /* SnapKit */; };
+		BCECB5EA28ED4DA60004F9F7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BCECB5E928ED4DA60004F9F7 /* Alamofire */; };
+		BCECB5ED28ED4DC40004F9F7 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BCECB5EC28ED4DC40004F9F7 /* Lottie */; };
+		BCECB5F028ED4DD60004F9F7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BCECB5EF28ED4DD60004F9F7 /* Kingfisher */; };
+		BCECB5F228ED50C00004F9F7 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5F128ED50C00004F9F7 /* ListView.swift */; };
+		BCECB5F628ED51970004F9F7 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BCECB5F528ED51970004F9F7 /* Realm */; };
+		BCECB5F828ED51970004F9F7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BCECB5F728ED51970004F9F7 /* RealmSwift */; };
+		BCECB5FA28ED53130004F9F7 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5F928ED53130004F9F7 /* SplashViewController.swift */; };
+		BCECB5FC28ED54070004F9F7 /* weather_splash.json in Resources */ = {isa = PBXBuildFile; fileRef = BCECB5FB28ED54070004F9F7 /* weather_splash.json */; };
+		BCECB5FE28ED58D00004F9F7 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5FD28ED58D00004F9F7 /* UserInfo.swift */; };
+		BCECB60128ED69C40004F9F7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60028ED69C40004F9F7 /* DetailView.swift */; };
+		BCECB60328ED69E10004F9F7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60228ED69E10004F9F7 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BCECB5C828ED40D30004F9F7 /* iOS_First_Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_First_Hackathon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCECB5CB28ED40D30004F9F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCECB5CD28ED40D30004F9F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BCECB5CF28ED40D30004F9F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BCECB5CF28ED40D30004F9F7 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		BCECB5D428ED40D40004F9F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCECB5D728ED40D40004F9F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCECB5D928ED40D40004F9F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCECB5E428ED482B0004F9F7 /* WeatherAPIKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = WeatherAPIKey.xcconfig; sourceTree = "<group>"; };
+		BCECB5F128ED50C00004F9F7 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		BCECB5F928ED53130004F9F7 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		BCECB5FB28ED54070004F9F7 /* weather_splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weather_splash.json; sourceTree = "<group>"; };
+		BCECB5FD28ED58D00004F9F7 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		BCECB60028ED69C40004F9F7 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		BCECB60228ED69E10004F9F7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +48,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCECB5F828ED51970004F9F7 /* RealmSwift in Frameworks */,
+				BCECB5F028ED4DD60004F9F7 /* Kingfisher in Frameworks */,
+				BCECB5E728ED4D940004F9F7 /* SnapKit in Frameworks */,
+				BCECB5EA28ED4DA60004F9F7 /* Alamofire in Frameworks */,
+				BCECB5ED28ED4DC40004F9F7 /* Lottie in Frameworks */,
+				BCECB5F628ED51970004F9F7 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,15 +79,16 @@
 		BCECB5CA28ED40D30004F9F7 /* iOS_First_Hackathon */ = {
 			isa = PBXGroup;
 			children = (
-				BCECB5E128ED47550004F9F7 /* Controller */,
-				BCECB5E028ED47500004F9F7 /* View */,
 				BCECB5DF28ED474B0004F9F7 /* Model */,
+				BCECB5E028ED47500004F9F7 /* View */,
+				BCECB5E128ED47550004F9F7 /* Controller */,
 				BCECB5CB28ED40D30004F9F7 /* AppDelegate.swift */,
 				BCECB5CD28ED40D30004F9F7 /* SceneDelegate.swift */,
 				BCECB5D428ED40D40004F9F7 /* Assets.xcassets */,
 				BCECB5D628ED40D40004F9F7 /* LaunchScreen.storyboard */,
 				BCECB5D928ED40D40004F9F7 /* Info.plist */,
 				BCECB5E428ED482B0004F9F7 /* WeatherAPIKey.xcconfig */,
+				BCECB5FB28ED54070004F9F7 /* weather_splash.json */,
 			);
 			path = iOS_First_Hackathon;
 			sourceTree = "<group>";
@@ -71,6 +96,7 @@
 		BCECB5DF28ED474B0004F9F7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BCECB5FD28ED58D00004F9F7 /* UserInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -78,6 +104,8 @@
 		BCECB5E028ED47500004F9F7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BCECB5FF28ED69B50004F9F7 /* Detail */,
+				BCECB5F328ED50C60004F9F7 /* List */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -85,9 +113,27 @@
 		BCECB5E128ED47550004F9F7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BCECB5CF28ED40D30004F9F7 /* ViewController.swift */,
+				BCECB5CF28ED40D30004F9F7 /* ListViewController.swift */,
+				BCECB5F928ED53130004F9F7 /* SplashViewController.swift */,
+				BCECB60228ED69E10004F9F7 /* DetailViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		BCECB5F328ED50C60004F9F7 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				BCECB5F128ED50C00004F9F7 /* ListView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		BCECB5FF28ED69B50004F9F7 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				BCECB60028ED69C40004F9F7 /* DetailView.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,6 +152,14 @@
 			dependencies = (
 			);
 			name = iOS_First_Hackathon;
+			packageProductDependencies = (
+				BCECB5E628ED4D940004F9F7 /* SnapKit */,
+				BCECB5E928ED4DA60004F9F7 /* Alamofire */,
+				BCECB5EC28ED4DC40004F9F7 /* Lottie */,
+				BCECB5EF28ED4DD60004F9F7 /* Kingfisher */,
+				BCECB5F528ED51970004F9F7 /* Realm */,
+				BCECB5F728ED51970004F9F7 /* RealmSwift */,
+			);
 			productName = iOS_First_Hackathon;
 			productReference = BCECB5C828ED40D30004F9F7 /* iOS_First_Hackathon.app */;
 			productType = "com.apple.product-type.application";
@@ -134,6 +188,13 @@
 				Base,
 			);
 			mainGroup = BCECB5BF28ED40D30004F9F7;
+			packageReferences = (
+				BCECB5E528ED4D940004F9F7 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				BCECB5E828ED4DA60004F9F7 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				BCECB5EB28ED4DC40004F9F7 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				BCECB5EE28ED4DD60004F9F7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				BCECB5F428ED51970004F9F7 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = BCECB5C928ED40D30004F9F7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -148,6 +209,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCECB5FC28ED54070004F9F7 /* weather_splash.json in Resources */,
 				BCECB5D828ED40D40004F9F7 /* LaunchScreen.storyboard in Resources */,
 				BCECB5D528ED40D40004F9F7 /* Assets.xcassets in Resources */,
 			);
@@ -160,9 +222,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCECB5D028ED40D30004F9F7 /* ViewController.swift in Sources */,
+				BCECB5F228ED50C00004F9F7 /* ListView.swift in Sources */,
+				BCECB5D028ED40D30004F9F7 /* ListViewController.swift in Sources */,
 				BCECB5CC28ED40D30004F9F7 /* AppDelegate.swift in Sources */,
+				BCECB60128ED69C40004F9F7 /* DetailView.swift in Sources */,
 				BCECB5CE28ED40D30004F9F7 /* SceneDelegate.swift in Sources */,
+				BCECB5FE28ED58D00004F9F7 /* UserInfo.swift in Sources */,
+				BCECB5FA28ED53130004F9F7 /* SplashViewController.swift in Sources */,
+				BCECB60328ED69E10004F9F7 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +372,8 @@
 				DEVELOPMENT_TEAM = F92UQYH2RA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS_First_Hackathon/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치정보를 받아옵니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치정보를 받아옵니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -334,6 +403,8 @@
 				DEVELOPMENT_TEAM = F92UQYH2RA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS_First_Hackathon/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치정보를 받아옵니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치정보를 받아옵니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -374,6 +445,82 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BCECB5E528ED4D940004F9F7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		BCECB5E828ED4DA60004F9F7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		BCECB5EB28ED4DC40004F9F7 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		BCECB5EE28ED4DD60004F9F7 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		BCECB5F428ED51970004F9F7 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BCECB5E628ED4D940004F9F7 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCECB5E528ED4D940004F9F7 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		BCECB5E928ED4DA60004F9F7 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCECB5E828ED4DA60004F9F7 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		BCECB5EC28ED4DC40004F9F7 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCECB5EB28ED4DC40004F9F7 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		BCECB5EF28ED4DD60004F9F7 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCECB5EE28ED4DD60004F9F7 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		BCECB5F528ED51970004F9F7 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCECB5F428ED51970004F9F7 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		BCECB5F728ED51970004F9F7 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCECB5F428ED51970004F9F7 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BCECB5C028ED40D30004F9F7 /* Project object */;
 }
