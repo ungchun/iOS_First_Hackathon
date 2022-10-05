@@ -72,7 +72,7 @@ extension SplashViewController: CLLocationManagerDelegate {
             break
         }
     }
-    
+
     private func requestAuthorization() {
         locationManager = CLLocationManager()
         locationManager!.desiredAccuracy = kCLLocationAccuracyBest
@@ -89,7 +89,11 @@ extension SplashViewController: CLLocationManagerDelegate {
         print("currentLocation.longitude \(currentLocation.longitude)")
         print("currentLocation.latitude \(currentLocation.latitude)")
         
-        let listVC = ListViewController()
+//        let listVC = ListViewController()
+//        listVC.modalPresentationStyle = .fullScreen
+//        self.present(listVC, animated: false)
+        
+        let listVC = PageViewController()
         listVC.modalPresentationStyle = .fullScreen
         self.present(listVC, animated: false)
     }

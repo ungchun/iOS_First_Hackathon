@@ -1,10 +1,11 @@
 import UIKit
 
-class DetailViewController: UIViewController {
-
+final class DetailViewController: UIViewController {
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
     }
 }

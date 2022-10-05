@@ -24,6 +24,7 @@
 		BCECB5FE28ED58D00004F9F7 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5FD28ED58D00004F9F7 /* UserInfo.swift */; };
 		BCECB60128ED69C40004F9F7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60028ED69C40004F9F7 /* DetailView.swift */; };
 		BCECB60328ED69E10004F9F7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60228ED69E10004F9F7 /* DetailViewController.swift */; };
+		BCECB60528ED720A0004F9F7 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB60428ED720A0004F9F7 /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		BCECB5FD28ED58D00004F9F7 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		BCECB60028ED69C40004F9F7 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		BCECB60228ED69E10004F9F7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		BCECB60428ED720A0004F9F7 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,9 +115,10 @@
 		BCECB5E128ED47550004F9F7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BCECB5CF28ED40D30004F9F7 /* ListViewController.swift */,
 				BCECB5F928ED53130004F9F7 /* SplashViewController.swift */,
+				BCECB5CF28ED40D30004F9F7 /* ListViewController.swift */,
 				BCECB60228ED69E10004F9F7 /* DetailViewController.swift */,
+				BCECB60428ED720A0004F9F7 /* PageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				BCECB60128ED69C40004F9F7 /* DetailView.swift in Sources */,
 				BCECB5CE28ED40D30004F9F7 /* SceneDelegate.swift in Sources */,
 				BCECB5FE28ED58D00004F9F7 /* UserInfo.swift in Sources */,
+				BCECB60528ED720A0004F9F7 /* PageViewController.swift in Sources */,
 				BCECB5FA28ED53130004F9F7 /* SplashViewController.swift in Sources */,
 				BCECB60328ED69E10004F9F7 /* DetailViewController.swift in Sources */,
 			);
