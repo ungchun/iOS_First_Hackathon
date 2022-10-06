@@ -4,9 +4,12 @@ import SpriteKit
 
 class DetailView: UIView {
     
+    // MARK: Properties
+    //
     var detailCityWeatherModel: WeatherModel?
     
-    // MARK: UI
+    // MARK: Views
+    //
 //    lazy var snowView: SKView = {
 //        let view = SKView()
 //        view.backgroundColor = .clear
@@ -303,6 +306,7 @@ class DetailView: UIView {
     }()
     
     // MARK: init
+    //
     required init(frame: CGRect, detailCityWeatherModel: WeatherModel) {
         super.init(frame: frame)
         self.detailCityWeatherModel = detailCityWeatherModel // 도시 정보를 담은 model
@@ -347,12 +351,12 @@ class DetailView: UIView {
         ])
         
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: func
+    // MARK: functions
+    //
     func bringBackgroundImage(_ main: String) -> UIImageView {
         let background: UIImage
         if main == "Clear" {

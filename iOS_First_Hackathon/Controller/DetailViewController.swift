@@ -2,15 +2,20 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
-    private var detailView: DetailView!
-    
+    // MARK: Properties
+    //
     var weatherModel: WeatherModel?
     
+    // MARK: Views
+    //
+    private var detailView: DetailView!
+    
+    // MARK: Life Cycle
+    //
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.largeTitleDisplayMode = .never
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +24,8 @@ final class DetailViewController: UIViewController {
         self.view.addSubview(detailView)
     }
     
+    // MARK: functions
+    //
     func receivedModel(weatherModel: WeatherModel) {
         self.weatherModel = weatherModel
     }

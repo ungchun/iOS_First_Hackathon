@@ -2,24 +2,15 @@ import Foundation
 import UIKit
 import SpriteKit
 
-let cellID = "Cell"
-
 class ListView: UIView {
-
+    
+    // MARK: Properties
+    //
     var weatherModelList: [WeatherModel] = []
     var cellTapAction: ((_ weatherModel: WeatherModel, _ tapIndex: Int) -> Void)?
-
-    // MARK: init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: UI
+    // MARK: Views
+    //
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width-20, height: 120)
@@ -34,13 +25,22 @@ class ListView: UIView {
         return cv
     }()
     
-    // MARK: func
-    fileprivate func setup() {
+    // MARK: init
+    //
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: functions
+    //
+    private func setup() {
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        collectionView.backgroundColor = .black
-        
+        //        collectionView.backgroundColor = .black
         addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -49,7 +49,7 @@ class ListView: UIView {
             collectionView.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor)
         ])
-        collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.reuseIdentifier)
     }
     
     func cellTap(_ weatherModel: WeatherModel, _ tapIndex: Int) {
@@ -63,7 +63,7 @@ extension ListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.reuseIdentifier, for: indexPath)
         cell.backgroundColor = UIColor.white.withAlphaComponent(0.1)
         if self.weatherModelList.count > indexPath.item {
             if let cell = cell as? ListCollectionViewCell {
@@ -74,12 +74,9 @@ extension ListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // cell click
         cellTap(weatherModelList[indexPath.item], indexPath.item)
     }
-    
 }
 
 extension ListView: UICollectionViewDelegate {
-    
 }

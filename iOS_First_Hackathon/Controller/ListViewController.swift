@@ -20,7 +20,6 @@ final class ListViewController: UIViewController  {
     //
     override func viewWillAppear(_ animated: Bool) {
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //        CityList.forEach { value in
@@ -29,7 +28,7 @@ final class ListViewController: UIViewController  {
         //            RealmManager.shared.create(region)
         //        }
         //        try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
-
+        
         setupView()
         setNavigationBarTitle()
     }
@@ -40,13 +39,9 @@ final class ListViewController: UIViewController  {
         let listView = ListView(frame: self.view.frame)
         listView.cellTapAction = navigationDetailView(_: _:)
         self.view.addSubview(listView)
-
-        let realmDatas = RealmManager.shared.realm.objects(Region.self)
         
-        // API 통해서 city weather 값 가져옴
+        let realmDatas = RealmManager.shared.realm.objects(Region.self)
         for cityName in realmDatas {
-            //main thread에서 load할 경우 URL 로딩이 길면 화면이 멈춘다.
-            //이를 방지하기 위해 다른 thread에서 처리함.
             let cityName = cityName.name
             DispatchQueue.global(qos: .background).async {
                 WeatherManager(cityName: cityName).getWeather { result in
@@ -56,10 +51,10 @@ final class ListViewController: UIViewController  {
                             listView.weatherModelList += [weatherValue]
                             listView.collectionView.reloadData()
                             
-                            let vc = DetailViewController()
-                            vc.weatherModel = weatherValue
-                            vc.receivedModel(weatherModel: weatherValue)
-                            self.dataViewControllers.append(vc)
+                            let detailVC = DetailViewController()
+                            detailVC.weatherModel = weatherValue
+                            detailVC.receivedModel(weatherModel: weatherValue)
+                            self.dataViewControllers.append(detailVC)
                         }
                     case .failure(let networkError):
                         print("\(networkError)")
@@ -68,7 +63,6 @@ final class ListViewController: UIViewController  {
             }
         }
     }
-    
     private func setNavigationBarTitle() {
         self.title = "전국 날씨"
         let appearance = UINavigationBarAppearance()
@@ -78,22 +72,11 @@ final class ListViewController: UIViewController  {
         self.navigationController!.navigationBar.scrollEdgeAppearance = self.navigationController!.navigationBar.standardAppearance
         self.navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
-    fileprivate func navigationDetailView(_ weatherModel: WeatherModel, _ tapIndex: Int) {
+    private func navigationDetailView(_ weatherModel: WeatherModel, _ tapIndex: Int) {
         let pageVC = PageViewController()
         pageVC.startIndex = tapIndex
-        //        pageVC.testArray = self.testArray
         pageVC.dataViewControllers = self.dataViewControllers
-        //        pageVC.receivedModel(weatherModel: weatherModel)
-        print("tapIndex \(tapIndex)")
         pageVC.modalPresentationStyle = .fullScreen
         self.present(pageVC, animated: false)
-        
-        
-        //        let detailVC = DetailViewController()
-        //        detailVC.receivedModel(weatherModel: weatherModel)
-        //        detailVC.modalPresentationStyle = .fullScreen
-        //        self.present(detailVC, animated: false)
     }
 }
-
