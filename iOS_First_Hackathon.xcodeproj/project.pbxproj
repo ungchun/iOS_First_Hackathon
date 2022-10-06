@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC76B8A428EE95F2001A9BFB /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A328EE95F2001A9BFB /* Weather.swift */; };
+		BC76B8A628EE9672001A9BFB /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A528EE9672001A9BFB /* WeatherManager.swift */; };
+		BC76B8A828EE99E4001A9BFB /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A728EE99E4001A9BFB /* ImageCacheManager.swift */; };
+		BC76B8AA28EEA5D3001A9BFB /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A928EEA5D3001A9BFB /* ListCollectionViewCell.swift */; };
+		BC76B8AD28EEA672001A9BFB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8AC28EEA672001A9BFB /* Extensions.swift */; };
 		BCECB5CC28ED40D30004F9F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5CB28ED40D30004F9F7 /* AppDelegate.swift */; };
 		BCECB5CE28ED40D30004F9F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5CD28ED40D30004F9F7 /* SceneDelegate.swift */; };
 		BCECB5D028ED40D30004F9F7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECB5CF28ED40D30004F9F7 /* ListViewController.swift */; };
@@ -30,6 +35,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC76B8A328EE95F2001A9BFB /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		BC76B8A528EE9672001A9BFB /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		BC76B8A728EE99E4001A9BFB /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		BC76B8A928EEA5D3001A9BFB /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
+		BC76B8AC28EEA672001A9BFB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BCECB5C828ED40D30004F9F7 /* iOS_First_Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_First_Hackathon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCECB5CB28ED40D30004F9F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCECB5CD28ED40D30004F9F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC76B8AB28EEA661001A9BFB /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				BC76B8AC28EEA672001A9BFB /* Extensions.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		BCECB5BF28ED40D30004F9F7 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +103,7 @@
 		BCECB5CA28ED40D30004F9F7 /* iOS_First_Hackathon */ = {
 			isa = PBXGroup;
 			children = (
+				BC76B8AB28EEA661001A9BFB /* Resource */,
 				BCECB60628EDA9B60004F9F7 /* Service */,
 				BCECB5DF28ED474B0004F9F7 /* Model */,
 				BCECB5E028ED47500004F9F7 /* View */,
@@ -105,6 +124,7 @@
 			children = (
 				BCECB5FD28ED58D00004F9F7 /* UserInfo.swift */,
 				BCECB60928EDA9F90004F9F7 /* RealmRegionInfo.swift */,
+				BC76B8A328EE95F2001A9BFB /* Weather.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -133,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				BCECB5F128ED50C00004F9F7 /* ListView.swift */,
+				BC76B8A928EEA5D3001A9BFB /* ListCollectionViewCell.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -149,6 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				BCECB60728EDA9C30004F9F7 /* RealmManager.swift */,
+				BC76B8A528EE9672001A9BFB /* WeatherManager.swift */,
+				BC76B8A728EE99E4001A9BFB /* ImageCacheManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -243,9 +266,14 @@
 				BCECB5D028ED40D30004F9F7 /* ListViewController.swift in Sources */,
 				BCECB5CC28ED40D30004F9F7 /* AppDelegate.swift in Sources */,
 				BCECB60128ED69C40004F9F7 /* DetailView.swift in Sources */,
+				BC76B8A628EE9672001A9BFB /* WeatherManager.swift in Sources */,
+				BC76B8A428EE95F2001A9BFB /* Weather.swift in Sources */,
+				BC76B8AA28EEA5D3001A9BFB /* ListCollectionViewCell.swift in Sources */,
 				BCECB5CE28ED40D30004F9F7 /* SceneDelegate.swift in Sources */,
 				BCECB5FE28ED58D00004F9F7 /* UserInfo.swift in Sources */,
+				BC76B8A828EE99E4001A9BFB /* ImageCacheManager.swift in Sources */,
 				BCECB60528ED720A0004F9F7 /* PageViewController.swift in Sources */,
+				BC76B8AD28EEA672001A9BFB /* Extensions.swift in Sources */,
 				BCECB60828EDA9C30004F9F7 /* RealmManager.swift in Sources */,
 				BCECB5FA28ED53130004F9F7 /* SplashViewController.swift in Sources */,
 				BCECB60A28EDA9F90004F9F7 /* RealmRegionInfo.swift in Sources */,

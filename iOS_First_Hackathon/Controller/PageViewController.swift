@@ -3,96 +3,45 @@ import RealmSwift
 
 final class PageViewController: UIViewController {
     
+    // MARK: Properties
+    //
     var currentIndex: Int?
     var pendingIndex: Int?
+    var startIndex: Int?
     
-    lazy var vc1: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .red
-        
-        return vc
-    }()
-    
-    lazy var vc2: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .green
-        
-        return vc
-    }()
-    
-    lazy var vc3: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .blue
-        
-        return vc
-    }()
-    
-    lazy var dataViewControllers: [UIViewController] = {
-        return [vc1, vc2, vc3]
-    }()
+    // MARK: Views
+    //
+    private let toolbar = UIToolbar()
+    var dataViewControllers: [UIViewController]!
     
     lazy var pageViewController: UIPageViewController = {
         let vc = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        
         return vc
     }()
-    
     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.currentPageIndicatorTintColor = .white
         pageControl.pageIndicatorTintColor = .white.withAlphaComponent(0.3)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-//        pageControl.numberOfPages = 3
         pageControl.currentPage = 0
         return pageControl
     }()
     
-    private let toolbar = UIToolbar()
-    
-    
+    // MARK: Life Cycle
+    //
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isToolbarHidden = false
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let region = Region()
-//        region.name = "daegu"
-//
-//        RealmManager.shared.create(region)
-        print("??? \(RealmManager.shared.realm.objects(Region.self))")
-
-        if let firstVC = dataViewControllers.first {
-            pageViewController.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
-        }
-        
-        configure()
-        setupDelegate()
-        
-        pageControl.numberOfPages = RealmManager.shared.realm.objects(Region.self).count
-        
-        print("RealmManager.shared.realm.objects(Region.self).count \(RealmManager.shared.realm.objects(Region.self).count)")
-        
-        let pageControl = UIBarButtonItem(customView: pageControl)
-        
-        let toolbar = UIToolbar()
-        view.addSubview(toolbar)
-        
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        toolbar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 0).isActive = true
-        toolbar.bottomAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.bottomAnchor, multiplier: 0).isActive = true
-        toolbar.trailingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.trailingAnchor, multiplier: 0).isActive = true
-        
-        let toolbarItem1 = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
-        let toolbarItem2 = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-        
-        toolbar.setItems([toolbarItem1, flexibleSpace, pageControl, flexibleSpace, toolbarItem2], animated: true)
+        setupView()
     }
     
-    private func configure() {
+    // MARK: functions
+    //
+    private func setupView() {
+        guard let dataViewControllers else { return }
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         
@@ -100,13 +49,31 @@ final class PageViewController: UIViewController {
             make.leading.trailing.top.bottom.equalToSuperview()
         }
         pageViewController.didMove(toParent: self)
-    }
-    
-    private func setupDelegate() {
         pageViewController.dataSource = self
         pageViewController.delegate = self
+        pageViewController.setViewControllers([dataViewControllers[startIndex!]], direction: .forward, animated: true, completion: nil)
+        
+        pageControl.numberOfPages = RealmManager.shared.realm.objects(Region.self).count
+        pageControl.currentPage = startIndex!
+        
+        setupToolbar()
     }
-    
+    private func setupToolbar() {
+        let toolbar = UIToolbar()
+        view.addSubview(toolbar)
+        
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.barTintColor = .clear
+        toolbar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 0).isActive = true
+        toolbar.bottomAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.bottomAnchor, multiplier: 0).isActive = true
+        toolbar.trailingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.trailingAnchor, multiplier: 0).isActive = true
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let toolbarItemMap = UIBarButtonItem(image: UIImage(systemName: "map"), style: .plain, target: self, action: nil)
+        let toolbarItemList = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .plain, target: self, action: nil)
+        let pageControl = UIBarButtonItem(customView: pageControl)
+        toolbar.setItems([toolbarItemMap, flexibleSpace, pageControl, flexibleSpace, toolbarItemList], animated: true)
+    }
 }
 
 extension PageViewController: UIPageViewControllerDataSource {
@@ -146,5 +113,4 @@ extension PageViewController: UIPageViewControllerDelegate {
             }
         }
     }
-    
 }
