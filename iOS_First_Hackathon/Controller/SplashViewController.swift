@@ -2,6 +2,7 @@ import UIKit
 import CoreLocation
 import Lottie
 import SnapKit
+import RealmSwift
 
 final class SplashViewController: UIViewController {
     
@@ -22,6 +23,18 @@ final class SplashViewController: UIViewController {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
+//        try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
+        
+        let ud = UserDefaults.standard
+        if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
+            UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
+            let region = Region()
+            region.name = "Daegu"
+            RealmManager.shared.create(region)
+//            let regionSeoul = Region()
+//            regionSeoul.name = "Seoul"
+//            RealmManager.shared.create(regionSeoul)
+        }
         
         setupView()
     }
@@ -41,7 +54,12 @@ final class SplashViewController: UIViewController {
         lottieAnimationView.play { [weak self] (finish) in
             guard let self = self else { return }
             
-            self.requestAuthorization()
+//            self.requestAuthorization()
+            
+            let listVC = ListViewController()
+            let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
+            navEditorViewController.modalPresentationStyle = .fullScreen
+            self.present(navEditorViewController, animated: false, completion: nil)
         }
     }
 }
@@ -60,19 +78,46 @@ extension SplashViewController: CLLocationManagerDelegate {
             break
         default:
             print("위치 거절")
+//            UserInfo.shared.longitude = 0
+//            UserInfo.shared.latitude = 0
+            let listVC = ListViewController()
+            let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
+            navEditorViewController.modalPresentationStyle = .fullScreen
+            self.present(navEditorViewController, animated: false, completion: nil)
             
-            let ud = UserDefaults.standard
-            if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
-                print("처음 접속 -> 팝업 띄워서 도시 선택 -> 디폴트 대구 말고 선택한 도시로")
-                UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
-            } else {
-                print("처음 접속 아님 -> 바로 디테일뷰로 이동")
-            }
+//            let ud = UserDefaults.standard
+//            if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
+//                print("처음 접속 -> 팝업 띄워서 도시 선택 -> 디폴트 대구 말고 선택한 도시로")
+//                UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
+//
+//                setRealmInitData {
+//                    let listVC = ListViewController()
+//                    let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
+//                    navEditorViewController.modalPresentationStyle = .fullScreen
+//                    self.present(navEditorViewController, animated: false, completion: nil)
+//                }
+//            } else {
+//                print("처음 접속 아님 -> 바로 디테일뷰로 이동")
+//                let listVC = ListViewController()
+//                let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
+//                navEditorViewController.modalPresentationStyle = .fullScreen
+//                self.present(navEditorViewController, animated: false, completion: nil)
+//            }
             break
         }
     }
 
     private func requestAuthorization() {
+//        let ud = UserDefaults.standard
+//        if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
+//            UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
+//            let region = Region()
+//            region.name = "Daegu"
+//            RealmManager.shared.create(region)
+//            let regionSeoul = Region()
+//            regionSeoul.name = "Seoul"
+//            RealmManager.shared.create(regionSeoul)
+//        }
         locationManager = CLLocationManager()
         locationManager!.desiredAccuracy = kCLLocationAccuracyBest
         locationManager!.requestWhenInUseAuthorization()
@@ -87,20 +132,35 @@ extension SplashViewController: CLLocationManagerDelegate {
         
         print("currentLocation.longitude \(currentLocation.longitude)")
         print("currentLocation.latitude \(currentLocation.latitude)")
+        
+//        let listVC = ListViewController()
+//        let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
+//        navEditorViewController.modalPresentationStyle = .fullScreen
+//        self.present(navEditorViewController, animated: false, completion: nil)
 
-        let ud = UserDefaults.standard
-        if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
-            print("처음 접속 -> 디폴트 대구 추가하고 넘어가기")
-            UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
-            let listVC = ListViewController()
-            let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
-            navEditorViewController.modalPresentationStyle = .fullScreen
-            self.present(navEditorViewController, animated: false, completion: nil)
-        } else {
-            let listVC = ListViewController()
-            let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
-            navEditorViewController.modalPresentationStyle = .fullScreen
-            self.present(navEditorViewController, animated: false, completion: nil)
-        }
+//        let ud = UserDefaults.standard
+//        if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
+//            print("처음 접속 -> 디폴트 대구 추가하고 넘어가기")
+//            UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
+//            setRealmInitData {
+//                let listVC = ListViewController()
+//                let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
+//                navEditorViewController.modalPresentationStyle = .fullScreen
+//                self.present(navEditorViewController, animated: false, completion: nil)
+//            }
+//        } else {
+//            let listVC = ListViewController()
+//            let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
+//            navEditorViewController.modalPresentationStyle = .fullScreen
+//            self.present(navEditorViewController, animated: false, completion: nil)
+//        }
+    }
+    
+    private func setRealmInitData(completion: @escaping () -> ()) {
+        let region = Region()
+        region.name = "Daegu"
+        RealmManager.shared.create(region)
+        
+        completion()
     }
 }

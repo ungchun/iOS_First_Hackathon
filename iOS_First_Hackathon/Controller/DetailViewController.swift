@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 
 final class DetailViewController: UIViewController {
     
@@ -18,10 +19,14 @@ final class DetailViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let detailView = DetailView(frame: self.view.frame, detailCityWeatherModel: weatherModel!)
-        self.detailView = detailView
-        self.view.addSubview(detailView)
+        if CLLocationManager().authorizationStatus == CLAuthorizationStatus.denied || CLLocationManager().authorizationStatus == CLAuthorizationStatus.restricted {
+            let emptyView = EmptyView(frame: self.view.frame)
+            self.view.addSubview(emptyView)
+        } else {
+            let detailView = DetailView(frame: self.view.frame, detailCityWeatherModel: weatherModel!)
+            self.detailView = detailView
+            self.view.addSubview(detailView)
+        }
     }
     
     // MARK: functions

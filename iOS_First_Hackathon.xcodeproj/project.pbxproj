@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC45274128F006FA00E9F33C /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC45274028F006FA00E9F33C /* EmptyView.swift */; };
 		BC76B8A428EE95F2001A9BFB /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A328EE95F2001A9BFB /* Weather.swift */; };
 		BC76B8A628EE9672001A9BFB /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A528EE9672001A9BFB /* WeatherManager.swift */; };
 		BC76B8A828EE99E4001A9BFB /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A728EE99E4001A9BFB /* ImageCacheManager.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC45274028F006FA00E9F33C /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		BC76B8A328EE95F2001A9BFB /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		BC76B8A528EE9672001A9BFB /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		BC76B8A728EE99E4001A9BFB /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				BCECB60028ED69C40004F9F7 /* DetailView.swift */,
+				BC45274028F006FA00E9F33C /* EmptyView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				BC76B8A628EE9672001A9BFB /* WeatherManager.swift in Sources */,
 				BC76B8A428EE95F2001A9BFB /* Weather.swift in Sources */,
 				BC76B8AA28EEA5D3001A9BFB /* ListCollectionViewCell.swift in Sources */,
+				BC45274128F006FA00E9F33C /* EmptyView.swift in Sources */,
 				BCECB5CE28ED40D30004F9F7 /* SceneDelegate.swift in Sources */,
 				BCECB5FE28ED58D00004F9F7 /* UserInfo.swift in Sources */,
 				BC76B8A828EE99E4001A9BFB /* ImageCacheManager.swift in Sources */,

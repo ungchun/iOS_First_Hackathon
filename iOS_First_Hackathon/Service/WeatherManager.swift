@@ -22,6 +22,8 @@ class WeatherManager {
         // API 호출을 위한 URL
         let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&q=\(cityName)&units=metric")
         
+//        let url = "http://api.openweathermap.org/data/2.5/weather?lat=\(currentLocation!.coordinate.latitude)&lon=\(currentLocation!.coordinate.longitude)"
+
         guard let url = url else {
             return completion(.failure(.badUrl))
         }

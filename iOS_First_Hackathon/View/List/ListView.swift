@@ -40,6 +40,7 @@ class ListView: UIView {
     private func setup() {
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.reuseIdentifier)
         //        collectionView.backgroundColor = .black
         addSubview(collectionView)
         
@@ -49,7 +50,6 @@ class ListView: UIView {
             collectionView.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor)
         ])
-        collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.reuseIdentifier)
     }
     
     func cellTap(_ weatherModel: WeatherModel, _ tapIndex: Int) {
@@ -59,7 +59,8 @@ class ListView: UIView {
 
 extension ListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return weatherModelList.count
+//        return weatherModelList.count
+        return RealmManager.shared.realm.objects(Region.self).count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

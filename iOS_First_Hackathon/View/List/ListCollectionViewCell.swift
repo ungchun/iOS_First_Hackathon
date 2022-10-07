@@ -9,6 +9,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     var weatherModel: WeatherModel? {
         didSet { bind() } // API로 들어오는 weatherModel의 갱신된 값을 갱신될때마다 cell에 보여줘야함 -> didset, willset
     }
+//    var weatherModel: WeatherModel?
     
     // MARK: Views
     //
@@ -32,14 +33,14 @@ class ListCollectionViewCell: UICollectionViewCell {
     private lazy var cityName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "city"
+        label.text = "위치 권한 설정"
         label.textColor = .white
         return label
     }()
     private lazy var koreaCityName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "도시"
+        label.text = ""
         label.font = .systemFont(ofSize: 35)
         label.textColor = .white
         return label
@@ -47,7 +48,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     private lazy var humidity: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "습도"
+        label.text = ""
         label.font = .systemFont(ofSize: 18)
         label.textColor = .white
         return label
@@ -55,7 +56,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     private lazy var temperature: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "온도"
+        label.text = ""
         label.font = .systemFont(ofSize: 18)
         label.textColor = .white
         return label
@@ -115,6 +116,42 @@ class ListCollectionViewCell: UICollectionViewCell {
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
+//        if  UserInfo.shared.longitude != 0 {
+//            activityIndicatorView.startAnimating()
+//            activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+//
+//            addSubview(activityIndicatorView)
+//            addSubview(stackView)
+//            addSubview(cityStackView)
+//
+//            stackView.addArrangedSubview(activityIndicatorView)
+//
+//            NSLayoutConstraint.activate([
+//                activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+//                activityIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+//
+//                cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
+//                cityStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+//
+//                stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
+//                stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+//            ])
+//        } else {
+//            print("else else")
+//            addSubview(stackView)
+//            addSubview(cityStackView)
+//
+//            NSLayoutConstraint.activate([
+//
+//                cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
+//                cityStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+//
+//                stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
+//                stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+//            ])
+//        }
+        
+//        bind()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -123,6 +160,9 @@ class ListCollectionViewCell: UICollectionViewCell {
     // MARK: functions
     //
     private func bind() {
+        
+        print("call bind")
+        print("weatherModel! \(weatherModel!)")
         koreaCityName.text = String(describing: CityKoreaListDic.filter {$0.keys.contains(weatherModel!.name)}.first!.first!.value)
         
         guard let cityNameValue = weatherModel?.name else { return }
@@ -140,6 +180,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         
         iconImage.setImageUrl(url) // 캐시 이미지 set
         
+        print("iconImage \(iconImage.image)") // 이거 왜 닐임 ? 이거 먼저 고치고 다시 코딩
         // cell backgroundImage
         if iconImage.image != nil {
             // 흐림
@@ -172,6 +213,7 @@ class ListCollectionViewCell: UICollectionViewCell {
             }
             
             stackView.removeArrangedSubview(activityIndicatorView)
+            
             stackView.addArrangedSubview(iconImage)
             stackView.addArrangedSubview(humidity)
             stackView.addArrangedSubview(temperature)
@@ -182,6 +224,7 @@ class ListCollectionViewCell: UICollectionViewCell {
             koreaCityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
             cityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
             humidity.rightAnchor.constraint(equalTo: self.temperature.leftAnchor, constant: -20).isActive = true
+            
             
             activityIndicatorView.stopAnimating()
         }
