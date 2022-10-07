@@ -114,8 +114,9 @@ class DetailView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 0
         stackView.distribution = .fillEqually
-        stackView.layer.borderWidth = 3
-        stackView.layer.cornerRadius = 25
+        stackView.layer.borderWidth = 2
+        stackView.layer.cornerRadius = 30
+        stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
         return stackView
     }()
     
@@ -143,8 +144,9 @@ class DetailView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.layer.borderWidth = 3
-        stackView.layer.cornerRadius = 25
+        stackView.layer.borderWidth = 2
+        stackView.layer.cornerRadius = 30
+        stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
         return stackView
     }()
     
@@ -172,8 +174,9 @@ class DetailView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.layer.borderWidth = 3
-        stackView.layer.cornerRadius = 25
+        stackView.layer.borderWidth = 2
+        stackView.layer.cornerRadius = 30
+        stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
         return stackView
     }()
     
@@ -201,8 +204,9 @@ class DetailView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.layer.borderWidth = 3
-        stackView.layer.cornerRadius = 25
+        stackView.layer.borderWidth = 2
+        stackView.layer.cornerRadius = 30
+        stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
         return stackView
     }()
     
@@ -230,8 +234,9 @@ class DetailView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.layer.borderWidth = 3
-        stackView.layer.cornerRadius = 25
+        stackView.layer.borderWidth = 2
+        stackView.layer.cornerRadius = 30
+        stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
         return stackView
     }()
     
@@ -259,8 +264,9 @@ class DetailView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.layer.borderWidth = 3
-        stackView.layer.cornerRadius = 25
+        stackView.layer.borderWidth = 2
+        stackView.layer.cornerRadius = 30
+        stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
         return stackView
     }()
     
@@ -311,7 +317,7 @@ class DetailView: UIView {
         super.init(frame: frame)
         self.detailCityWeatherModel = detailCityWeatherModel // 도시 정보를 담은 model
         
-//        setBackgroundView()
+        setBackgroundView()
         setCityData()
         setAddArrangedSubview()
         
@@ -374,14 +380,14 @@ class DetailView: UIView {
         return imageView
     }
     
-//    func setBackgroundView() {
+    func setBackgroundView() {
 //        // 흐림
-//        if detailCityWeatherModel!.weather.first!.main.contains("Clouds") {
-//            // image 를 backgroud 에 세팅하기
-//            let imageView = bringBackgroundImage("Clouds")
-//            self.addSubview(imageView)
-//            self.sendSubviewToBack(imageView)
-//        }
+        if detailCityWeatherModel!.weather.first!.main.contains("Clouds") {
+            // image 를 backgroud 에 세팅하기
+            let imageView = bringBackgroundImage("Clouds")
+            self.addSubview(imageView)
+            self.sendSubviewToBack(imageView)
+        }
 //        // 눈
 //        else if detailCityWeatherModel!.weather.first!.main.contains("Snow") {
 //            let imageView = bringBackgroundImage("Clouds")
@@ -409,12 +415,12 @@ class DetailView: UIView {
 //            rainView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
 //        }
 //        // 그 외
-//        else {
-//            let imageView = bringBackgroundImage("Clear")
-//            self.addSubview(imageView)
-//            self.sendSubviewToBack(imageView)
-//        }
-//    }
+        else {
+            let imageView = bringBackgroundImage("Clear")
+            self.addSubview(imageView)
+            self.sendSubviewToBack(imageView)
+        }
+    }
     
     func setCityData() {
         
@@ -427,8 +433,8 @@ class DetailView: UIView {
         tempLabel.text = "\(String(describing: intTemperatureValue))°"
         
         // 날씨설명
-//        descriptionLabel.text = String(describing: DescriptionListDic.filter {$0.values.contains((detailCityWeatherModel!.weather[0].description))}.first!.first!.key)
-        descriptionLabel.text = "날씨 설명"
+        descriptionLabel.text = String(describing: DescriptionListDic.filter {$0.values.contains((detailCityWeatherModel!.weather[0].description))}.first!.first!.key)
+//        descriptionLabel.text = "날씨 설명"
         
         // 최고, 최저기온
         let intTemperatureMaxValue = Int(detailCityWeatherModel!.main.temp_max)

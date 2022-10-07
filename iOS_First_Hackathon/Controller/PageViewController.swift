@@ -21,7 +21,7 @@ final class PageViewController: UIViewController {
     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.currentPageIndicatorTintColor = .white
-        pageControl.pageIndicatorTintColor = .white.withAlphaComponent(0.3)
+        pageControl.pageIndicatorTintColor = .white.withAlphaComponent(0.5)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.currentPage = 0
         return pageControl
@@ -61,18 +61,28 @@ final class PageViewController: UIViewController {
     private func setupToolbar() {
         let toolbar = UIToolbar()
         view.addSubview(toolbar)
-        
         toolbar.translatesAutoresizingMaskIntoConstraints = false
-        toolbar.barTintColor = .clear
+        toolbar.isTranslucent = true
+        toolbar.backgroundColor = .clear
+        toolbar.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
         toolbar.leadingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.leadingAnchor, multiplier: 0).isActive = true
         toolbar.bottomAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.bottomAnchor, multiplier: 0).isActive = true
         toolbar.trailingAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.trailingAnchor, multiplier: 0).isActive = true
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: self, action: nil)
+        fixedSpace.width = 6
         let toolbarItemMap = UIBarButtonItem(image: UIImage(systemName: "map"), style: .plain, target: self, action: nil)
-        let toolbarItemList = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .plain, target: self, action: nil)
+        toolbarItemMap.tintColor = .white
+        let toolbarItemList = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .plain, target: self, action: #selector(goToTheList))
+        toolbarItemList.tintColor = .white
         let pageControl = UIBarButtonItem(customView: pageControl)
-        toolbar.setItems([toolbarItemMap, flexibleSpace, pageControl, flexibleSpace, toolbarItemList], animated: true)
+        toolbar.setItems([fixedSpace, toolbarItemMap, flexibleSpace, pageControl, flexibleSpace, toolbarItemList, fixedSpace], animated: true)
+    }
+    @objc private func goToTheList(sender: UIBarButtonItem) {
+        print("goToTheList")
+        self.dismiss(animated: false)
     }
 }
 
