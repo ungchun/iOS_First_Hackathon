@@ -1,15 +1,14 @@
 import UIKit
 import SpriteKit
 
-class ListCollectionViewCell: UICollectionViewCell {
+class ListTableViewCell: UITableViewCell {
     
     // MARK: Properties
     //
-    static let reuseIdentifier = String(describing: ListCollectionViewCell.self)
+    static let reuseIdentifier = String(describing: ListTableViewCell.self)
     var weatherModel: WeatherModel? {
         didSet { bind() } // API로 들어오는 weatherModel의 갱신된 값을 갱신될때마다 cell에 보여줘야함 -> didset, willset
     }
-    //    var weatherModel: WeatherModel?
     
     // MARK: Views
     //
@@ -95,8 +94,9 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     // MARK: init
     //
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        print("@@@@ cell init")
         activityIndicatorView.startAnimating()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -115,6 +115,7 @@ class ListCollectionViewCell: UICollectionViewCell {
             
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            
         ])
         //        if  UserInfo.shared.longitude != 0 {
         //            activityIndicatorView.startAnimating()
@@ -161,7 +162,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     //
     private func bind() {
         
-        print("call bind")
+        print("@@@@ call bind")
         print("weatherModel! \(weatherModel!)")
         koreaCityName.text = String(describing: CityKoreaListDic.filter {$0.keys.contains(weatherModel!.name)}.first!.first!.value)
         

@@ -4,105 +4,35 @@ import RealmSwift
 
 final class ListViewController: UIViewController, CLLocationManagerDelegate  {
     
-    lazy var collectionView: UITableView = {
-        
-        let cv = UITableView()
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        
-        return cv
-    }()
-    var weatherModelList: [WeatherModel] = []
-    
-    
-    
-    let alert = UIAlertController(title: "경고", message: "지역이 1개일 때는 삭제할 수 없습니다.", preferredStyle: UIAlertController.Style.alert)
-//    let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
-    
-    
-    
-    
-    private let imageView = UIImageView(image: UIImage (systemName: "plus.circle"))
-    private let imageView2 = UIImageView(image: UIImage (systemName: "gearshape"))
-    
-//    private lazy var dataSource = { self.}
-    
-    private struct Const {
-        /// Image height/width for Large NavBar state
-        static let ImageSizeForLargeState: CGFloat = 40
-        /// Margin from right anchor of safe area to right anchor of Image
-        static let ImageRightMargin: CGFloat = 16
-        /// Margin from bottom anchor of NavBar to bottom anchor of Image for Large NavBar state
-        static let ImageBottomMarginForLargeState: CGFloat = 12
-        /// Margin from bottom anchor of NavBar to bottom anchor of Image for Small NavBar state
-        static let ImageBottomMarginForSmallState: CGFloat = 6
-        /// Image height/width for Small NavBar state
-        static let ImageSizeForSmallState: CGFloat = 32
-        /// Height of NavBar for Small state. Usually it's just 44
-        static let NavBarHeightSmallState: CGFloat = 44
-        /// Height of NavBar for Large state. Usually it's just 96.5 but if you have a custom font for the title, please make sure to edit this value since it changes the height for Large state of NavBar
-        static let NavBarHeightLargeState: CGFloat = 96.5
-    }
-    
-    private func setupUI() {
-        
-
-        navigationController?.navigationBar.prefersLargeTitles = true
-        //      title = "Large Title"
-        
-        // Initial setup for image for Large NavBar state since the the screen always has Large NavBar once it gets opened
-        guard let navigationBar = self.navigationController?.navigationBar else { return }
-        
-        self.title = "전국 날씨"
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .black
-        self.navigationController!.navigationBar.standardAppearance = appearance;
-        self.navigationController!.navigationBar.scrollEdgeAppearance = self.navigationController!.navigationBar.standardAppearance
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        
-        navigationBar.addSubview(imageView)
-        navigationBar.addSubview(imageView2)
-        
-        
-        // setup constraints
-        imageView.layer.cornerRadius = Const.ImageSizeForLargeState / 2
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView2.layer.cornerRadius = Const.ImageSizeForLargeState / 2
-        imageView2.clipsToBounds = true
-        imageView2.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -Const.ImageRightMargin),
-            imageView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -Const.ImageBottomMarginForLargeState),
-            imageView.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-            
-            imageView2.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -Const.ImageRightMargin * 4.5),
-            imageView2.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -Const.ImageBottomMarginForLargeState),
-            imageView2.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState),
-            imageView2.widthAnchor.constraint(equalTo: imageView.heightAnchor)
-        ])
-    }
-    
-    
-    var locationManager: CLLocationManager?
-    var currentLocation: CLLocationCoordinate2D!
     
     // MARK: Properties
     //
+    private struct Const {
+        static let ImageSizeForLargeState: CGFloat = 40
+        static let ImageRightMargin: CGFloat = 16
+        static let ImageBottomMarginForLargeState: CGFloat = 12
+    }
     let CityList = [
         "Gongju", "Gwangju", "Gumi", "Gunsan", "Daegu", "Daejeon",
         "Mokpo", "Busan", "Seosan", "Seoul", "Sokcho", "suwon", "Iksan", "Suncheon",
         "Ulsan", "Jeonju", "Jeju", "Cheonan", "Cheongju", "Chuncheon"
     ]
+    var weatherModelList: [WeatherModel] = []
+    //    var locationManager: CLLocationManager?
+    //    var currentLocation: CLLocationCoordinate2D!
+    
     
     // MARK: Views
     //
-//    private var listView: ListView!
-//    private var listView: ListViewTable!
-    var dataViewControllers: [UIViewController] = []
-    
+    private let alert = UIAlertController(title: "경고", message: "지역이 1개일 때는 삭제할 수 없습니다.", preferredStyle: UIAlertController.Style.alert)
+    private let plusBtn = UIImageView(image: UIImage (systemName: "plus.circle"))
+    private let setBtn = UIImageView(image: UIImage (systemName: "gearshape"))
+    private var dataViewControllers: [UIViewController] = []
+    lazy var tableView: UITableView = {
+        let view = UITableView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     // MARK: Life Cycle
     //
@@ -117,9 +47,16 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         //        }
         //        try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
         
-        collectionView.register(ListViewTableCell.self, forCellReuseIdentifier: ListViewTableCell.reuseIdentifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        setupView()
+        setNavigationBarTitle()
+    }
+    
+    // MARK: functions
+    //
+    private func setupView() {
+        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
+        tableView.delegate = self
+        tableView.dataSource = self
         
         let realmDatas = RealmManager.shared.realm.objects(Region.self)
         for cityName in realmDatas {
@@ -135,7 +72,7 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
                             detailVC.weatherModel = weatherValue
                             detailVC.receivedModel(weatherModel: weatherValue)
                             self.dataViewControllers.append(detailVC)
-                            self.collectionView.reloadData()
+                            self.tableView.reloadData()
                             print("@@@@ after reload \(cityName)")
                         }
                     case .failure(let networkError):
@@ -145,56 +82,20 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
             }
         }
         
-        view.addSubview(collectionView)
-
+        view.addSubview(tableView)
+        
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+        tableView.rowHeight = 150
         
-        collectionView.rowHeight = 150
-        
-//        setupView()
-        setupUI()
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: {_ in }))
     }
-    
-    // MARK: functions
-    //
-    private func setupView() {
-//        let listView = ListView(frame: self.view.frame)
-        //        listView.cellTapAction = navigationDetailView(_: _:)
-        let listView = ListViewTable()
-        self.view.addSubview(listView)
-        
-        let realmDatas = RealmManager.shared.realm.objects(Region.self)
-        for cityName in realmDatas {
-            let cityName = cityName.name
-            DispatchQueue.global(qos: .background).async {
-                WeatherManager(cityName: cityName).getWeather { result in
-                    switch result {
-                    case .success(let weatherValue):
-                        listView.weatherModelList.append(weatherValue)
-                        
-                        DispatchQueue.main.async {
-                            let detailVC = DetailViewController()
-                            detailVC.weatherModel = weatherValue
-                            detailVC.receivedModel(weatherModel: weatherValue)
-                            self.dataViewControllers.append(detailVC)
-                            listView.collectionView.reloadData()
-                            print("@@@@ after reload \(cityName)")
-                        }
-                    case .failure(let networkError):
-                        print("\(networkError)")
-                    }
-                }
-            }
-        }
-    }
-    
     private func setNavigationBarTitle() {
+        guard let navigationBar = self.navigationController?.navigationBar else { return }
         self.title = "전국 날씨"
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -202,6 +103,30 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         self.navigationController!.navigationBar.standardAppearance = appearance;
         self.navigationController!.navigationBar.scrollEdgeAppearance = self.navigationController!.navigationBar.standardAppearance
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        navigationBar.addSubview(plusBtn)
+        navigationBar.addSubview(setBtn)
+        
+        
+        // setup constraints
+        plusBtn.layer.cornerRadius = Const.ImageSizeForLargeState / 2
+        plusBtn.clipsToBounds = true
+        plusBtn.translatesAutoresizingMaskIntoConstraints = false
+        setBtn.layer.cornerRadius = Const.ImageSizeForLargeState / 2
+        setBtn.clipsToBounds = true
+        setBtn.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            plusBtn.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -Const.ImageRightMargin),
+            plusBtn.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -Const.ImageBottomMarginForLargeState),
+            plusBtn.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState),
+            plusBtn.widthAnchor.constraint(equalTo: plusBtn.heightAnchor),
+            
+            setBtn.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -Const.ImageRightMargin * 4.5),
+            setBtn.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -Const.ImageBottomMarginForLargeState),
+            setBtn.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState),
+            setBtn.widthAnchor.constraint(equalTo: plusBtn.heightAnchor)
+        ])
     }
     private func navigationDetailView(_ weatherModel: WeatherModel, _ tapIndex: Int) {
         let pageVC = PageViewController()
@@ -210,35 +135,34 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         pageVC.modalPresentationStyle = .fullScreen
         self.present(pageVC, animated: false)
     }
-    
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-          
-          if editingStyle == .delete {
-              if weatherModelList.count == 1 {
-                  self.present(alert, animated: true, completion: nil)
-              } else {
-                  if let userinfo = RealmManager.shared.realm.objects(Region.self).filter(NSPredicate(format: "name = %@", weatherModelList[indexPath.row].name)).first {
-                      RealmManager.shared.delete(userinfo)
-                      
-                      weatherModelList.remove(at: indexPath.row)
-                      tableView.deleteRows(at: [indexPath], with: .fade)
-                  }
-              }
-          }
-      }
+        
+        if editingStyle == .delete {
+            if weatherModelList.count == 1 {
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                if let userinfo = RealmManager.shared.realm.objects(Region.self).filter(NSPredicate(format: "name = %@", weatherModelList[indexPath.row].name)).first {
+                    RealmManager.shared.delete(userinfo)
+                    
+                    weatherModelList.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RealmManager.shared.realm.objects(Region.self).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ListViewTableCell.reuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath)
         cell.backgroundColor = UIColor.white.withAlphaComponent(0.1)
         if self.weatherModelList.count > indexPath.item {
-            if let cell = cell as? ListViewTableCell {
+            if let cell = cell as? ListTableViewCell {
                 cell.weatherModel = weatherModelList[indexPath.item]
             }
         }
