@@ -13,21 +13,21 @@ class ListTableViewCell: UITableViewCell {
     // MARK: Views
     //
     let activityIndicatorView =  UIActivityIndicatorView(style: .medium)
-    //    lazy var snowView: SKView = {
-    //        let view = SKView()
-    //        view.backgroundColor = .clear
-    //        let scene = SnowScene()
-    //        view.presentScene(scene)
-    //        return view
-    //    }()
-    //
-    //    lazy var rainView: SKView = {
-    //        let view = SKView()
-    //        view.backgroundColor = .clear
-    //        let scene = RainScene()
-    //        view.presentScene(scene)
-    //        return view
-    //    }()
+//        lazy var snowView: SKView = {
+//            let view = SKView()
+//            view.backgroundColor = .clear
+//            let scene = SnowScene()
+//            view.presentScene(scene)
+//            return view
+//        }()
+//
+//        lazy var rainView: SKView = {
+//            let view = SKView()
+//            view.backgroundColor = .clear
+//            let scene = RainScene()
+//            view.presentScene(scene)
+//            return view
+//        }()
     
     private lazy var cityName: UILabel = {
         let label = UILabel()
@@ -64,7 +64,7 @@ class ListTableViewCell: UITableViewCell {
         let img = UIImageView()
         return img
     }()
-    
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +74,7 @@ class ListTableViewCell: UITableViewCell {
         stackView.spacing = 10
         return stackView
     }()
-    
+
     private lazy var cityStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,111 +84,89 @@ class ListTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private lazy var tempView: UIView = {
-        var view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        
-        return view
+    private lazy var backgroundImageView: UIImageView = {
+       let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.borderWidth = 1
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
+        return imageView
     }()
     
     // MARK: init
     //
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        print("@@@@ cell init")
+
         activityIndicatorView.startAnimating()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(activityIndicatorView)
-        addSubview(stackView)
-        addSubview(cityStackView)
+        backgroundImageView.addSubview(activityIndicatorView)
+        backgroundImageView.addSubview(stackView)
+        backgroundImageView.addSubview(cityStackView)
+        
+        contentView.addSubview(backgroundImageView)
         
         stackView.addArrangedSubview(activityIndicatorView)
         
         NSLayoutConstraint.activate([
+            backgroundImageView.heightAnchor.constraint(equalToConstant: 150),
+            backgroundImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            backgroundImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            
             activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             activityIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
-            cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
+            cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 40),
             cityStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            
-            stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-            
+
+            stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
+            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
-        //        if  UserInfo.shared.longitude != 0 {
-        //            activityIndicatorView.startAnimating()
-        //            activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        //
-        //            addSubview(activityIndicatorView)
-        //            addSubview(stackView)
-        //            addSubview(cityStackView)
-        //
-        //            stackView.addArrangedSubview(activityIndicatorView)
-        //
-        //            NSLayoutConstraint.activate([
-        //                activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-        //                activityIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-        //
-        //                cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
-        //                cityStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-        //
-        //                stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-        //                stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        //            ])
-        //        } else {
-        //            print("else else")
-        //            addSubview(stackView)
-        //            addSubview(cityStackView)
-        //
-        //            NSLayoutConstraint.activate([
-        //
-        //                cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
-        //                cityStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-        //
-        //                stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-        //                stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        //            ])
-        //        }
-        
-        //        bind()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10.0, left: 10, bottom: 10, right: 10))
+
+    }
+    
+    override func prepareForReuse() {
+        
     }
     
     // MARK: functions
     //
     private func bind() {
-        
-        print("@@@@ call bind")
-        print("weatherModel! \(weatherModel!)")
         koreaCityName.text = String(describing: CityKoreaListDic.filter {$0.keys.contains(weatherModel!.name)}.first!.first!.value)
-        
+
         guard let cityNameValue = weatherModel?.name else { return }
         cityName.text = String(describing: cityNameValue)
-        
+
         guard let humidityValue = weatherModel?.main.humidity else { return }
         humidity.text =  "\(String(describing: humidityValue)) %"
-        
+
         guard let temperatureValue = weatherModel?.main.temp else { return }
         let intTemperatureValue = Int(temperatureValue)
         temperature.text = "\(String(describing: intTemperatureValue))°"
-        
+
         guard let imgStringValue = weatherModel?.weather.first?.icon else { return }
         let url = "https://openweathermap.org/img/wn/\(imgStringValue).png"
-        
+
         iconImage.setImageUrl(url) // 캐시 이미지 set
-        
+
         // cell backgroundImage
         // 흐림
         if weatherModel!.weather.first!.main.contains("Clouds") {
-            self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
+            self.backgroundImageView.image = UIImage(named: "cloud.jpg")
         }
         // 눈
         else if weatherModel!.weather.first!.main.contains("Snow"){
-            self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
+            self.backgroundImageView.image = UIImage(named: "cloud.jpg")
             //                self.backgroundView!.addSubview(snowView)
             //                snowView.translatesAutoresizingMaskIntoConstraints = false
             //                snowView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -198,7 +176,7 @@ class ListTableViewCell: UITableViewCell {
         }
         // 비 or 천둥번개
         else if weatherModel!.weather.first!.main.contains("Rain") ||  weatherModel!.weather.first!.main.contains("thunderstorm"){
-            self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
+            self.backgroundImageView.image = UIImage(named: "cloud.jpg")
             //                self.backgroundView!.addSubview(rainView)
             //                rainView.translatesAutoresizingMaskIntoConstraints = false
             //                rainView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -208,24 +186,22 @@ class ListTableViewCell: UITableViewCell {
         }
         // 그 외
         else {
-            self.backgroundView = UIImageView(image: UIImage(named: "sun.jpg"))
+            self.backgroundImageView.image = UIImage(named: "cloud.jpg")
         }
-        
+
         stackView.removeArrangedSubview(activityIndicatorView)
-        
+
         stackView.addArrangedSubview(iconImage)
         stackView.addArrangedSubview(humidity)
         stackView.addArrangedSubview(temperature)
-        
+
         cityStackView.addArrangedSubview(koreaCityName)
         cityStackView.addArrangedSubview(cityName)
-        
+
         koreaCityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
         cityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
         humidity.rightAnchor.constraint(equalTo: self.temperature.leftAnchor, constant: -20).isActive = true
-        
-        
+
         activityIndicatorView.stopAnimating()
     }
 }
-

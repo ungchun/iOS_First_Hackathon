@@ -99,12 +99,4 @@ extension SplashViewController: CLLocationManagerDelegate {
         print("currentLocation.longitude \(currentLocation.longitude)")
         print("currentLocation.latitude \(currentLocation.latitude)")
     }
-    
-    private func setRealmInitData(completion: @escaping () -> ()) {
-        let region = Region()
-        region.name = "Daegu"
-        RealmManager.shared.create(region)
-        
-        completion()
-    }
 }

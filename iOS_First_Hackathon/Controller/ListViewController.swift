@@ -1,9 +1,9 @@
 import UIKit
 import CoreLocation
 import RealmSwift
+import SnapKit
 
 final class ListViewController: UIViewController, CLLocationManagerDelegate  {
-    
     
     // MARK: Properties
     //
@@ -21,14 +21,13 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
     //    var locationManager: CLLocationManager?
     //    var currentLocation: CLLocationCoordinate2D!
     
-    
     // MARK: Views
     //
     private let alert = UIAlertController(title: "경고", message: "지역이 1개일 때는 삭제할 수 없습니다.", preferredStyle: UIAlertController.Style.alert)
     private let plusBtn = UIImageView(image: UIImage (systemName: "plus.circle"))
     private let setBtn = UIImageView(image: UIImage (systemName: "gearshape"))
     private var dataViewControllers: [UIViewController] = []
-    lazy var tableView: UITableView = {
+    var tableView: UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -57,6 +56,16 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
+        
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
         
         let realmDatas = RealmManager.shared.realm.objects(Region.self)
         for cityName in realmDatas {
@@ -66,7 +75,7 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
                     switch result {
                     case .success(let weatherValue):
                         self.weatherModelList.append(weatherValue)
-                        
+
                         DispatchQueue.main.async {
                             let detailVC = DetailViewController()
                             detailVC.weatherModel = weatherValue
@@ -81,16 +90,6 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
                 }
             }
         }
-        
-        view.addSubview(tableView)
-        
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-        tableView.rowHeight = 150
         
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: {_ in }))
     }
@@ -107,8 +106,6 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         navigationBar.addSubview(plusBtn)
         navigationBar.addSubview(setBtn)
         
-        
-        // setup constraints
         plusBtn.layer.cornerRadius = Const.ImageSizeForLargeState / 2
         plusBtn.clipsToBounds = true
         plusBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -128,7 +125,7 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
             setBtn.widthAnchor.constraint(equalTo: plusBtn.heightAnchor)
         ])
     }
-    private func navigationDetailView(_ weatherModel: WeatherModel, _ tapIndex: Int) {
+    private func navigationDetailView(_ tapIndex: Int) {
         let pageVC = PageViewController()
         pageVC.startIndex = tapIndex
         pageVC.dataViewControllers = self.dataViewControllers
@@ -140,7 +137,6 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
         if editingStyle == .delete {
             if weatherModelList.count == 1 {
                 self.present(alert, animated: true, completion: nil)
@@ -154,18 +150,22 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RealmManager.shared.realm.objects(Region.self).count
-    }
+       }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath)
-        cell.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+        cell.selectionStyle = .none
         if self.weatherModelList.count > indexPath.item {
             if let cell = cell as? ListTableViewCell {
                 cell.weatherModel = weatherModelList[indexPath.item]
             }
         }
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationDetailView( indexPath.row)
     }
 }
