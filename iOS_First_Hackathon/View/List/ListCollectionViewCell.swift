@@ -9,7 +9,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     var weatherModel: WeatherModel? {
         didSet { bind() } // API로 들어오는 weatherModel의 갱신된 값을 갱신될때마다 cell에 보여줘야함 -> didset, willset
     }
-//    var weatherModel: WeatherModel?
+    //    var weatherModel: WeatherModel?
     
     // MARK: Views
     //
@@ -116,42 +116,42 @@ class ListCollectionViewCell: UICollectionViewCell {
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
-//        if  UserInfo.shared.longitude != 0 {
-//            activityIndicatorView.startAnimating()
-//            activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-//
-//            addSubview(activityIndicatorView)
-//            addSubview(stackView)
-//            addSubview(cityStackView)
-//
-//            stackView.addArrangedSubview(activityIndicatorView)
-//
-//            NSLayoutConstraint.activate([
-//                activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-//                activityIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//
-//                cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
-//                cityStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//
-//                stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-//                stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-//            ])
-//        } else {
-//            print("else else")
-//            addSubview(stackView)
-//            addSubview(cityStackView)
-//
-//            NSLayoutConstraint.activate([
-//
-//                cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
-//                cityStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//
-//                stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-//                stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-//            ])
-//        }
+        //        if  UserInfo.shared.longitude != 0 {
+        //            activityIndicatorView.startAnimating()
+        //            activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        //
+        //            addSubview(activityIndicatorView)
+        //            addSubview(stackView)
+        //            addSubview(cityStackView)
+        //
+        //            stackView.addArrangedSubview(activityIndicatorView)
+        //
+        //            NSLayoutConstraint.activate([
+        //                activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+        //                activityIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+        //
+        //                cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
+        //                cityStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+        //
+        //                stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
+        //                stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        //            ])
+        //        } else {
+        //            print("else else")
+        //            addSubview(stackView)
+        //            addSubview(cityStackView)
+        //
+        //            NSLayoutConstraint.activate([
+        //
+        //                cityStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
+        //                cityStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+        //
+        //                stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
+        //                stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        //            ])
+        //        }
         
-//        bind()
+        //        bind()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -180,54 +180,51 @@ class ListCollectionViewCell: UICollectionViewCell {
         
         iconImage.setImageUrl(url) // 캐시 이미지 set
         
-        print("iconImage \(iconImage.image)") // 이거 왜 닐임 ? 이거 먼저 고치고 다시 코딩
         // cell backgroundImage
-        if iconImage.image != nil {
-            // 흐림
-            if weatherModel!.weather.first!.main.contains("Clouds") {
-                self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
-            }
-            // 눈
-            else if weatherModel!.weather.first!.main.contains("Snow"){
-                self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
-                //                self.backgroundView!.addSubview(snowView)
-                //                snowView.translatesAutoresizingMaskIntoConstraints = false
-                //                snowView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-                //                snowView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-                //                snowView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-                //                snowView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-            }
-            // 비 or 천둥번개
-            else if weatherModel!.weather.first!.main.contains("Rain") ||  weatherModel!.weather.first!.main.contains("thunderstorm"){
-                self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
-                //                self.backgroundView!.addSubview(rainView)
-                //                rainView.translatesAutoresizingMaskIntoConstraints = false
-                //                rainView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-                //                rainView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-                //                rainView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-                //                rainView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-            }
-            // 그 외
-            else {
-                self.backgroundView = UIImageView(image: UIImage(named: "sun.jpg"))
-            }
-            
-            stackView.removeArrangedSubview(activityIndicatorView)
-            
-            stackView.addArrangedSubview(iconImage)
-            stackView.addArrangedSubview(humidity)
-            stackView.addArrangedSubview(temperature)
-            
-            cityStackView.addArrangedSubview(koreaCityName)
-            cityStackView.addArrangedSubview(cityName)
-            
-            koreaCityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
-            cityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
-            humidity.rightAnchor.constraint(equalTo: self.temperature.leftAnchor, constant: -20).isActive = true
-            
-            
-            activityIndicatorView.stopAnimating()
+        // 흐림
+        if weatherModel!.weather.first!.main.contains("Clouds") {
+            self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
         }
+        // 눈
+        else if weatherModel!.weather.first!.main.contains("Snow"){
+            self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
+            //                self.backgroundView!.addSubview(snowView)
+            //                snowView.translatesAutoresizingMaskIntoConstraints = false
+            //                snowView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            //                snowView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            //                snowView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            //                snowView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        }
+        // 비 or 천둥번개
+        else if weatherModel!.weather.first!.main.contains("Rain") ||  weatherModel!.weather.first!.main.contains("thunderstorm"){
+            self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
+            //                self.backgroundView!.addSubview(rainView)
+            //                rainView.translatesAutoresizingMaskIntoConstraints = false
+            //                rainView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            //                rainView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            //                rainView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            //                rainView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        }
+        // 그 외
+        else {
+            self.backgroundView = UIImageView(image: UIImage(named: "sun.jpg"))
+        }
+        
+        stackView.removeArrangedSubview(activityIndicatorView)
+        
+        stackView.addArrangedSubview(iconImage)
+        stackView.addArrangedSubview(humidity)
+        stackView.addArrangedSubview(temperature)
+        
+        cityStackView.addArrangedSubview(koreaCityName)
+        cityStackView.addArrangedSubview(cityName)
+        
+        koreaCityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
+        cityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
+        humidity.rightAnchor.constraint(equalTo: self.temperature.leftAnchor, constant: -20).isActive = true
+        
+        
+        activityIndicatorView.stopAnimating()
     }
 }
 

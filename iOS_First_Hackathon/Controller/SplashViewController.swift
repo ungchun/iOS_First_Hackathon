@@ -54,7 +54,7 @@ final class SplashViewController: UIViewController {
         lottieAnimationView.play { [weak self] (finish) in
             guard let self = self else { return }
             
-//            self.requestAuthorization()
+            self.requestAuthorization()
             
             let listVC = ListViewController()
             let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
@@ -80,10 +80,10 @@ extension SplashViewController: CLLocationManagerDelegate {
             print("위치 거절")
 //            UserInfo.shared.longitude = 0
 //            UserInfo.shared.latitude = 0
-            let listVC = ListViewController()
-            let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
-            navEditorViewController.modalPresentationStyle = .fullScreen
-            self.present(navEditorViewController, animated: false, completion: nil)
+//            let listVC = ListViewController()
+//            let navEditorViewController: UINavigationController = UINavigationController(rootViewController: listVC)
+//            navEditorViewController.modalPresentationStyle = .fullScreen
+//            self.present(navEditorViewController, animated: false, completion: nil)
             
 //            let ud = UserDefaults.standard
 //            if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
