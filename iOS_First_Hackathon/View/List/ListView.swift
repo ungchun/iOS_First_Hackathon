@@ -55,6 +55,8 @@ class ListView: UIView {
     func cellTap(_ weatherModel: WeatherModel, _ tapIndex: Int) {
         cellTapAction!(weatherModel, tapIndex)
     }
+    
+//    private func configureDataSource() -> UiCollectionViewDIff
 }
 
 extension ListView: UICollectionViewDataSource {
@@ -77,6 +79,7 @@ extension ListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         cellTap(weatherModelList[indexPath.item], indexPath.item)
     }
+
 }
 
 extension ListView: UICollectionViewDelegate {
