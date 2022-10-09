@@ -381,40 +381,40 @@ class DetailView: UIView {
     }
     
     func setBackgroundView() {
-//        // 흐림
+        // 흐림
         if detailCityWeatherModel!.weather.first!.main.contains("Clouds") {
             // image 를 backgroud 에 세팅하기
             let imageView = bringBackgroundImage("Clouds")
             self.addSubview(imageView)
             self.sendSubviewToBack(imageView)
         }
-//        // 눈
-//        else if detailCityWeatherModel!.weather.first!.main.contains("Snow") {
-//            let imageView = bringBackgroundImage("Clouds")
-//            self.addSubview(imageView)
-//            self.sendSubviewToBack(imageView)
-//
+        // 눈
+        else if detailCityWeatherModel!.weather.first!.main.contains("Snow") {
+            let imageView = bringBackgroundImage("Clouds")
+            self.addSubview(imageView)
+            self.sendSubviewToBack(imageView)
+
 //            self.addSubview(snowView)
 //            snowView.translatesAutoresizingMaskIntoConstraints = false
 //            snowView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
 //            snowView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
 //            snowView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
 //            snowView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-//        }
-//        // 비 or 천둥번개
-//        else if detailCityWeatherModel!.weather.first!.main.contains("Rain") || detailCityWeatherModel!.weather.first!.main.contains("thunderstorm") {
-//            let imageView = bringBackgroundImage("Clouds")
-//            self.addSubview(imageView)
-//            self.sendSubviewToBack(imageView)
-//
+        }
+        // 비 or 천둥번개
+        else if detailCityWeatherModel!.weather.first!.main.contains("Rain") || detailCityWeatherModel!.weather.first!.main.contains("thunderstorm") {
+            let imageView = bringBackgroundImage("Clouds")
+            self.addSubview(imageView)
+            self.sendSubviewToBack(imageView)
+
 //            self.addSubview(rainView)
 //            rainView.translatesAutoresizingMaskIntoConstraints = false
 //            rainView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
 //            rainView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
 //            rainView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
 //            rainView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-//        }
-//        // 그 외
+        }
+        // 그 외
         else {
             let imageView = bringBackgroundImage("Clear")
             self.addSubview(imageView)

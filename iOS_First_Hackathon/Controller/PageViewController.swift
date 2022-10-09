@@ -55,7 +55,6 @@ final class PageViewController: UIViewController {
         
         pageControl.numberOfPages = RealmManager.shared.realm.objects(Region.self).count
         pageControl.currentPage = startIndex!
-//        pageControl.setIndicatorImage(UIImage(systemName: "location.fill"), forPage: 0)
         
         setupToolbar()
     }

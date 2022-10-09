@@ -4,24 +4,16 @@ import RealmSwift
 import SnapKit
 
 final class ListViewController: UIViewController, CLLocationManagerDelegate  {
-    
-    static var isChangeRegion = false
-    
+
     // MARK: Properties
     //
+    static var isChangeRegion = false
     private struct Const {
         static let ImageSizeForLargeState: CGFloat = 40
         static let ImageRightMargin: CGFloat = 16
         static let ImageBottomMarginForLargeState: CGFloat = 12
     }
-    let CityList = [
-        "Gongju", "Gwangju", "Gumi", "Gunsan", "Daegu", "Daejeon",
-        "Mokpo", "Busan", "Seosan", "Seoul", "Sokcho", "suwon", "Iksan", "Suncheon",
-        "Ulsan", "Jeonju", "Jeju", "Cheonan", "Cheongju", "Chuncheon"
-    ]
     var weatherModelList: [WeatherModel] = []
-    //    var locationManager: CLLocationManager?
-    //    var currentLocation: CLLocationCoordinate2D!
     
     // MARK: Views
     //
@@ -34,70 +26,13 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    let activityIndicatorView = UIActivityIndicatorView(style: .medium)
-    
-    func showIndicatorView(){
 
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 50, 50))
-        let backgroundView = UIView()
-
-        backgroundView.layer.cornerRadius = 05
-        backgroundView.clipsToBounds = true
-        backgroundView.isOpaque = false
-        backgroundView.backgroundColor = .white
-
-//        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        loadingIndicator.color = .white
-        loadingIndicator.startAnimating()
-
-        let loadingLabel = UILabel()
-        loadingLabel.text = "Loading..."
-//        let textSize: CGSize = loadingLabel.text!.sizeWithAttributes([NSFontAttributeName: loadingLabel.font ])
-
-//        loadingLabel.frame = CGRectMake(50, 0, textSize.width, textSize.height)
-        loadingLabel.center.y = loadingIndicator.center.y
-
-//        backgroundView.frame = CGRectMake(0, 0, textSize.width + 70, 50)
-        backgroundView.center = self.view.center;
-
-        self.view.addSubview(backgroundView)
-                    NSLayoutConstraint.activate([
-                        backgroundView.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
-                        backgroundView.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor),
-                    ])
-        backgroundView.addSubview(loadingIndicator)
-        backgroundView.addSubview(loadingLabel)
-    }
-    
     // MARK: Life Cycle
     //
     override func viewWillAppear(_ animated: Bool) {
-        
-        
-        print("viewWillAppear ")
         if ListViewController.isChangeRegion {
-//            showIndicatorView()
-//            activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-//            activityIndicatorView.hidesWhenStopped = false
-//            view.addSubview(activityIndicatorView)
-//            activityIndicatorView.startAnimating()
-//
-//
-//            NSLayoutConstraint.activate([
-//                activityIndicatorView.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
-//                activityIndicatorView.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor),
-//            ])
-            
-            
-            
-              
-              
-    
-            
+            print("@@@@ viewWillAppear")
             ListViewController.isChangeRegion = false
-//            setupView()
-            
             tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
             tableView.delegate = self
             tableView.dataSource = self
@@ -120,7 +55,6 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
                                 detailVC.receivedModel(weatherModel: weatherValue)
                                 self.dataViewControllers.append(detailVC)
                                 self.tableView.reloadData()
-                                print("@@@@ after reload \(cityName)")
                             }
                         case .failure(let networkError):
                             print("\(networkError)")
@@ -132,13 +66,6 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        CityList.forEach { value in
-        //            let region = Region()
-        //            region.name = value
-        //            RealmManager.shared.create(region)
-        //        }
-        //        try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
-        
         setupView()
         setNavigationBarTitle()
     }
@@ -146,9 +73,6 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
     // MARK: functions
     //
     private func setupView() {
-//        weatherModelList.removeAll()
-//        dataViewControllers.removeAll()
-        
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
@@ -162,7 +86,7 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-        
+        print("@@@@ RealmManager.shared.realm.objects(Region.self) \(RealmManager.shared.realm.objects(Region.self).count)")
         let realmDatas = RealmManager.shared.realm.objects(Region.self)
         for cityName in realmDatas {
             let cityName = cityName.name
@@ -178,42 +102,15 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
                             detailVC.receivedModel(weatherModel: weatherValue)
                             self.dataViewControllers.append(detailVC)
                             self.tableView.reloadData()
-                            print("@@@@ after reload \(cityName)")
+                            print("@@@@ \(self.dataViewControllers.count)")
                         }
                     case .failure(let networkError):
-                        print("\(networkError)")
+                        print("@@@@ \(networkError) \(cityName)")
                     }
                 }
             }
         }
-        
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: {_ in }))
-    }
-    
-    func reloadTableView() {
-        let realmDatas = RealmManager.shared.realm.objects(Region.self)
-        for cityName in realmDatas {
-            let cityName = cityName.name
-            DispatchQueue.global(qos: .background).async {
-                WeatherManager(cityName: cityName).getWeather { result in
-                    switch result {
-                    case .success(let weatherValue):
-                        self.weatherModelList.append(weatherValue)
-
-                        DispatchQueue.main.async {
-                            let detailVC = DetailViewController()
-                            detailVC.weatherModel = weatherValue
-                            detailVC.receivedModel(weatherModel: weatherValue)
-                            self.dataViewControllers.append(detailVC)
-                            self.tableView.reloadData()
-                            print("@@@@ after reload \(cityName)")
-                        }
-                    case .failure(let networkError):
-                        print("\(networkError)")
-                    }
-                }
-            }
-        }
     }
     private func setNavigationBarTitle() {
         guard let navigationBar = self.navigationController?.navigationBar else { return }
@@ -262,10 +159,8 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         self.present(pageVC, animated: false)
     }
     @objc func navigationAddRegionView() {
-        print("navigationAddRegionView")
         let addRegionViewController = AddRegionViewController()
         self.navigationController?.pushViewController(addRegionViewController, animated: true)
-//        self.present(addRegionViewController, animated: true)
     }
     @objc func navigationSettingView() {
         print("navigationSettingView")
@@ -292,14 +187,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         return "삭제"
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        print("@@@@ \(RealmManager.shared.realm.objects(Region.self).count)")
         return RealmManager.shared.realm.objects(Region.self).count
        }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("tableView tableView")
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath)
         cell.selectionStyle = .none
-//        cell.activityIndicatorView
         if self.weatherModelList.count > indexPath.item {
             if let cell = cell as? ListTableViewCell {
                 cell.weatherModel = weatherModelList[indexPath.item]
@@ -308,6 +202,6 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationDetailView( indexPath.row)
+        navigationDetailView(indexPath.row)
     }
 }

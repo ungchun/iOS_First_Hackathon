@@ -30,7 +30,7 @@ struct Weather: Codable {
 
 // API 값 받으면 return 하는 city name -> 한글 name 으로 변경
 var CityKoreaListDic: [[String: String]] = [
-    ["Gongju": "공주"], ["Mokpo": "목포"], ["Gumi": "구미"], ["Busan": "부산"], ["Seosan City": "서산"], ["Seoul": "서울"], ["Daegu": "대구"], ["Gwangju": "광주"], ["Gunsan": "군산"], ["Daejeon": "대전"], ["Sokcho": "속초"], ["Iksan": "익산"], ["Suwon-si": "수원"], ["Suncheon": "순천"], ["Ulsan": "울산"], ["Jeonju": "전주"], ["Jeju City": "제주"], ["Cheonan": "천안"], ["Cheongju-si": "청주"], ["Chuncheon": "춘천"]
+    ["Gongju": "공주"], ["Mokpo": "목포"], ["Gumi": "구미"], ["Busan": "부산"], ["Seoul": "서울"], ["Daegu": "대구"], ["Gwangju": "광주"], ["Gunsan": "군산"], ["Daejeon": "대전"], ["Sokcho": "속초"], ["Iksan": "익산"], ["Suwon-si": "수원"], ["Suncheon": "순천"], ["Ulsan": "울산"], ["Jeonju": "전주"], ["Cheonan": "천안"], ["Cheongju-si": "청주"], ["Chuncheon": "춘천"]
 ]
 
 var DescriptionListDic: [[String: String]] = [

@@ -10,8 +10,8 @@ final class SplashViewController: UIViewController {
     //
     let CityList = [
         "Gongju", "Gwangju", "Gumi", "Gunsan", "Daegu", "Daejeon",
-        "Mokpo", "Busan", "Seosan City", "Seoul", "Sokcho", "Suwon-si", "Iksan", "Suncheon",
-        "Ulsan", "Jeonju", "Jeju City", "Cheonan", "Cheongju-si", "Chuncheon"
+        "Mokpo", "Busan", "Seoul", "Sokcho", "Suwon-si", "Iksan", "Suncheon",
+        "Ulsan", "Jeonju", "Cheonan", "Cheongju-si", "Chuncheon"
     ]
     var locationManager: CLLocationManager?
     var currentLocation: CLLocationCoordinate2D!
@@ -28,25 +28,29 @@ final class SplashViewController: UIViewController {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
+        let a = RealmManager.shared.realm.objects(Region.self)
+        a.forEach { region in
+            print("@@@@ \(region.name)")
+        }
+        print("@@@@ RealmManager.shared.realm \(RealmManager.shared.realm.objects(Region.self))")
 //        CityList.forEach { value in
 //            let region = Region()
 //            region.name = value
 //            RealmManager.shared.create(region)
 //        }
-        //        try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
-//
+//        try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
+
         let ud = UserDefaults.standard
         if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
             UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
-            let region = Region()
-            region.name = "Daegu"
-            RealmManager.shared.create(region)
-
-            let region2 = Region()
-            region2.name = "Seoul"
-            RealmManager.shared.create(region2)
+//            let region = Region()
+//            region.name = "Daegu"
+//            RealmManager.shared.create(region)
+//
+//            let region2 = Region()
+//            region2.name = "Seoul"
+//            RealmManager.shared.create(region2)
         }
-        print("@@@@@@@ \(RealmManager.shared.realm.objects(Region.self))")
         setupView()
     }
     

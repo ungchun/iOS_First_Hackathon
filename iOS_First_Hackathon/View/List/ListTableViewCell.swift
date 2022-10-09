@@ -97,7 +97,6 @@ class ListTableViewCell: UITableViewCell {
     //
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        print("init init")
         activityIndicatorView.startAnimating()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -136,6 +135,7 @@ class ListTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+//        print("@@@@ prepareForReuse")
         activityIndicatorView.startAnimating()
         stackView.isHidden = true
         cityStackView.isHidden = true
@@ -146,7 +146,6 @@ class ListTableViewCell: UITableViewCell {
     // MARK: functions
     //
     private func bind() {
-        print("bind bind bind")
         koreaCityName.text = String(describing: CityKoreaListDic.filter {$0.keys.contains(weatherModel!.name)}.first!.first!.value)
 
         guard let cityNameValue = weatherModel?.name else { return }
