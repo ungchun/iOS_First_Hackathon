@@ -8,6 +8,11 @@ final class SplashViewController: UIViewController {
     
     // MARK: Properties
     //
+    let CityList = [
+        "Gongju", "Gwangju", "Gumi", "Gunsan", "Daegu", "Daejeon",
+        "Mokpo", "Busan", "Seosan City", "Seoul", "Sokcho", "Suwon-si", "Iksan", "Suncheon",
+        "Ulsan", "Jeonju", "Jeju City", "Cheonan", "Cheongju-si", "Chuncheon"
+    ]
     var locationManager: CLLocationManager?
     var currentLocation: CLLocationCoordinate2D!
     
@@ -23,15 +28,20 @@ final class SplashViewController: UIViewController {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
+//        CityList.forEach { value in
+//            let region = Region()
+//            region.name = value
+//            RealmManager.shared.create(region)
+//        }
         //        try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
-        
+//
         let ud = UserDefaults.standard
         if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
             UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
             let region = Region()
             region.name = "Daegu"
             RealmManager.shared.create(region)
-            
+
             let region2 = Region()
             region2.name = "Seoul"
             RealmManager.shared.create(region2)

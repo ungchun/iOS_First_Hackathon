@@ -97,7 +97,7 @@ class ListTableViewCell: UITableViewCell {
     //
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        print("init init")
         activityIndicatorView.startAnimating()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -136,12 +136,17 @@ class ListTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        
+        activityIndicatorView.startAnimating()
+        stackView.isHidden = true
+        cityStackView.isHidden = true
+        backgroundImageView.image = nil
+        backgroundImageView.addSubview(activityIndicatorView)
     }
     
     // MARK: functions
     //
     private func bind() {
+        print("bind bind bind")
         koreaCityName.text = String(describing: CityKoreaListDic.filter {$0.keys.contains(weatherModel!.name)}.first!.first!.value)
 
         guard let cityNameValue = weatherModel?.name else { return }
@@ -201,6 +206,9 @@ class ListTableViewCell: UITableViewCell {
         koreaCityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
         cityName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
         humidity.rightAnchor.constraint(equalTo: self.temperature.leftAnchor, constant: -20).isActive = true
+        
+        stackView.isHidden = false
+        cityStackView.isHidden = false
 
         activityIndicatorView.stopAnimating()
     }
