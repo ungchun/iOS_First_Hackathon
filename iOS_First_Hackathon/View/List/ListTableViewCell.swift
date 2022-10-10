@@ -13,21 +13,21 @@ class ListTableViewCell: UITableViewCell {
     // MARK: Views
     //
     let activityIndicatorView =  UIActivityIndicatorView(style: .medium)
-//        lazy var snowView: SKView = {
-//            let view = SKView()
-//            view.backgroundColor = .clear
-//            let scene = SnowScene()
-//            view.presentScene(scene)
-//            return view
-//        }()
-//
-//        lazy var rainView: SKView = {
-//            let view = SKView()
-//            view.backgroundColor = .clear
-//            let scene = RainScene()
-//            view.presentScene(scene)
-//            return view
-//        }()
+        lazy var snowView: SKView = {
+            let view = SKView()
+            view.backgroundColor = .clear
+            let scene = SnowScene()
+            view.presentScene(scene)
+            return view
+        }()
+
+        lazy var rainView: SKView = {
+            let view = SKView()
+            view.backgroundColor = .clear
+            let scene = RainScene()
+            view.presentScene(scene)
+            return view
+        }()
     
     private lazy var cityName: UILabel = {
         let label = UILabel()
@@ -103,6 +103,10 @@ class ListTableViewCell: UITableViewCell {
         backgroundImageView.addSubview(stackView)
         backgroundImageView.addSubview(cityStackView)
         
+//        addSubview(activityIndicatorView)
+//        addSubview(stackView)
+//        addSubview(cityStackView)
+        
         contentView.addSubview(backgroundImageView)
         
         stackView.addArrangedSubview(activityIndicatorView)
@@ -137,7 +141,10 @@ class ListTableViewCell: UITableViewCell {
         activityIndicatorView.startAnimating()
         stackView.isHidden = true
         cityStackView.isHidden = true
+
+        contentView.addSubview(backgroundImageView)
         backgroundImageView.image = nil
+        backgroundImageView.removeAllSubviews(type: SKView.self)
         backgroundImageView.addSubview(activityIndicatorView)
     }
     
@@ -165,30 +172,31 @@ class ListTableViewCell: UITableViewCell {
         // 흐림
         if weatherModel!.weather.first!.main.contains("Clouds") {
             self.backgroundImageView.image = UIImage(named: "cloud.jpg")
+//            self.backgroundView = UIImageView(image: UIImage(named: "cloud.jpg"))
         }
         // 눈
         else if weatherModel!.weather.first!.main.contains("Snow"){
             self.backgroundImageView.image = UIImage(named: "cloud.jpg")
-            //                self.backgroundView!.addSubview(snowView)
-            //                snowView.translatesAutoresizingMaskIntoConstraints = false
-            //                snowView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-            //                snowView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-            //                snowView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-            //                snowView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+            self.backgroundImageView.addSubview(snowView)
+            snowView.translatesAutoresizingMaskIntoConstraints = false
+            snowView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            snowView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            snowView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            snowView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         }
         // 비 or 천둥번개
         else if weatherModel!.weather.first!.main.contains("Rain") ||  weatherModel!.weather.first!.main.contains("thunderstorm"){
             self.backgroundImageView.image = UIImage(named: "cloud.jpg")
-            //                self.backgroundView!.addSubview(rainView)
-            //                rainView.translatesAutoresizingMaskIntoConstraints = false
-            //                rainView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-            //                rainView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-            //                rainView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-            //                rainView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+            self.backgroundImageView.addSubview(rainView)
+            rainView.translatesAutoresizingMaskIntoConstraints = false
+            rainView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            rainView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            rainView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            rainView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         }
         // 그 외
         else {
-            self.backgroundImageView.image = UIImage(named: "cloud.jpg")
+            self.backgroundImageView.image = UIImage(named: "sun.jpg")
         }
 
         stackView.removeArrangedSubview(activityIndicatorView)
@@ -208,5 +216,20 @@ class ListTableViewCell: UITableViewCell {
         cityStackView.isHidden = false
 
         activityIndicatorView.stopAnimating()
+    }
+}
+// https://stackoverflow.com/questions/24312760/how-to-remove-all-subviews-of-a-view-in-swift
+// subview remove
+extension UIView {
+    /// Remove all subview
+    func removeAllSubviews() { // subView 전체 삭제
+        subviews.forEach { $0.removeFromSuperview() }
+    }
+
+    /// Remove all subview with specific type
+    func removeAllSubviews<T: UIView>(type: T.Type) { // 원하는 type의 subView만 삭제
+        subviews
+            .filter { $0.isMember(of: type) }
+            .forEach { $0.removeFromSuperview() }
     }
 }

@@ -11,21 +11,21 @@ class DetailView: UIView {
     
     // MARK: Views
     //
-//    lazy var snowView: SKView = {
-//        let view = SKView()
-//        view.backgroundColor = .clear
-//        let scene = SnowScene()
-//        view.presentScene(scene)
-//        return view
-//    }()
-//
-//    lazy var rainView: SKView = {
-//        let view = SKView()
-//        view.backgroundColor = .clear
-//        let scene = RainScene()
-//        view.presentScene(scene)
-//        return view
-//    }()
+    lazy var snowView: SKView = {
+        let view = SKView()
+        view.backgroundColor = .clear
+        let scene = SnowScene()
+        view.presentScene(scene)
+        return view
+    }()
+
+    lazy var rainView: SKView = {
+        let view = SKView()
+        view.backgroundColor = .clear
+        let scene = RainScene()
+        view.presentScene(scene)
+        return view
+    }()
     
     // 도시이름, 현재온도, 설명, 최고, 최저기온
     private let koreaCityNameLabel: UILabel = {
@@ -402,12 +402,12 @@ class DetailView: UIView {
             self.addSubview(imageView)
             self.sendSubviewToBack(imageView)
 
-//            self.addSubview(snowView)
-//            snowView.translatesAutoresizingMaskIntoConstraints = false
-//            snowView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//            snowView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-//            snowView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-//            snowView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+            self.addSubview(snowView)
+            snowView.translatesAutoresizingMaskIntoConstraints = false
+            snowView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            snowView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            snowView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            snowView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         }
         // 비 or 천둥번개
         else if detailCityWeatherModel!.weather.first!.main.contains("Rain") || detailCityWeatherModel!.weather.first!.main.contains("thunderstorm") {
@@ -415,12 +415,12 @@ class DetailView: UIView {
             self.addSubview(imageView)
             self.sendSubviewToBack(imageView)
 
-//            self.addSubview(rainView)
-//            rainView.translatesAutoresizingMaskIntoConstraints = false
-//            rainView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//            rainView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-//            rainView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-//            rainView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+            self.addSubview(rainView)
+            rainView.translatesAutoresizingMaskIntoConstraints = false
+            rainView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            rainView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            rainView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            rainView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         }
         // 그 외
         else {

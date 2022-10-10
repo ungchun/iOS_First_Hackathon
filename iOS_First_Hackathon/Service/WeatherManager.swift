@@ -18,10 +18,6 @@ class WeatherManager {
     func getWeather(completion: @escaping (Result<WeatherModel, NetworkError>) -> Void) {
         
         guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String else { return }
-        
-//        UserInfo.shared.latitude
-//        UserInfo.shared.longitude
-//        let url = "http://api.openweathermap.org/data/2.5/weather?lat=\(currentLocation!.coordinate.latitude)&lon=\(currentLocation!.coordinate.longitude)"
 
         // API 호출을 위한 URL
         let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&q=\(cityName)&units=metric")
