@@ -18,7 +18,7 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
     // MARK: Views
     //
     private let alert = UIAlertController(title: "경고", message: "지역이 1개일 때는 삭제할 수 없습니다.", preferredStyle: UIAlertController.Style.alert)
-    private let plusBtn = UIImageView(image: UIImage (systemName: "plus.circle"))
+    private let plusBtn = UIImageView(image: UIImage (systemName: "plus"))
     private let setBtn = UIImageView(image: UIImage (systemName: "gearshape"))
     private var dataViewControllers: [UIViewController] = []
     var tableView: UITableView = {
@@ -142,12 +142,12 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         NSLayoutConstraint.activate([
             plusBtn.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -Const.ImageRightMargin),
             plusBtn.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -Const.ImageBottomMarginForLargeState),
-            plusBtn.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState),
+            plusBtn.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState - 10),
             plusBtn.widthAnchor.constraint(equalTo: plusBtn.heightAnchor),
             
             setBtn.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -Const.ImageRightMargin * 4.5),
             setBtn.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -Const.ImageBottomMarginForLargeState),
-            setBtn.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState),
+            setBtn.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState - 10),
             setBtn.widthAnchor.constraint(equalTo: plusBtn.heightAnchor)
         ])
     }

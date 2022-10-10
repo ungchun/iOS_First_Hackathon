@@ -117,6 +117,7 @@ class DetailView: UIView {
         stackView.layer.borderWidth = 2
         stackView.layer.cornerRadius = 30
         stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
+        stackView.backgroundColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2)
         return stackView
     }()
     
@@ -147,6 +148,7 @@ class DetailView: UIView {
         stackView.layer.borderWidth = 2
         stackView.layer.cornerRadius = 30
         stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
+        stackView.backgroundColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2)
         return stackView
     }()
     
@@ -177,6 +179,7 @@ class DetailView: UIView {
         stackView.layer.borderWidth = 2
         stackView.layer.cornerRadius = 30
         stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
+        stackView.backgroundColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2)
         return stackView
     }()
     
@@ -207,6 +210,7 @@ class DetailView: UIView {
         stackView.layer.borderWidth = 2
         stackView.layer.cornerRadius = 30
         stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
+        stackView.backgroundColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2)
         return stackView
     }()
     
@@ -237,6 +241,7 @@ class DetailView: UIView {
         stackView.layer.borderWidth = 2
         stackView.layer.cornerRadius = 30
         stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
+        stackView.backgroundColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2)
         return stackView
     }()
     
@@ -267,6 +272,7 @@ class DetailView: UIView {
         stackView.layer.borderWidth = 2
         stackView.layer.cornerRadius = 30
         stackView.layer.borderColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2).cgColor
+        stackView.backgroundColor = UIColor (red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2)
         return stackView
     }()
     
