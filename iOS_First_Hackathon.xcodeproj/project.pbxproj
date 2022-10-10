@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BC0DD61328F12A4E000144D4 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0DD61228F12A4E000144D4 /* ListTableViewCell.swift */; };
+		BC1ABFE728F3F947000F85D7 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1ABFE628F3F947000F85D7 /* SettingViewController.swift */; };
+		BC1ABFEA28F3F95B000F85D7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1ABFE928F3F95B000F85D7 /* SettingView.swift */; };
 		BC76B8A428EE95F2001A9BFB /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A328EE95F2001A9BFB /* Weather.swift */; };
 		BC76B8A628EE9672001A9BFB /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A528EE9672001A9BFB /* WeatherManager.swift */; };
 		BC76B8A828EE99E4001A9BFB /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC76B8A728EE99E4001A9BFB /* ImageCacheManager.swift */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		BC0DD61228F12A4E000144D4 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		BC1ABFE628F3F947000F85D7 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		BC1ABFE928F3F95B000F85D7 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		BC76B8A328EE95F2001A9BFB /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		BC76B8A528EE9672001A9BFB /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		BC76B8A728EE99E4001A9BFB /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
@@ -78,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC1ABFE828F3F94E000F85D7 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				BC1ABFE928F3F95B000F85D7 /* SettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		BC76B8AB28EEA661001A9BFB /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +146,7 @@
 		BCECB5E028ED47500004F9F7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BC1ABFE828F3F94E000F85D7 /* Setting */,
 				BCF6FFBE28F2866A00EBEF0B /* AddRegion */,
 				BCECB5FF28ED69B50004F9F7 /* Detail */,
 				BCECB5F328ED50C60004F9F7 /* List */,
@@ -149,6 +162,7 @@
 				BCECB60228ED69E10004F9F7 /* DetailViewController.swift */,
 				BCECB60428ED720A0004F9F7 /* PageViewController.swift */,
 				BCF6FFBC28F284A800EBEF0B /* AddRegionViewController.swift */,
+				BC1ABFE628F3F947000F85D7 /* SettingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -278,10 +292,12 @@
 				BCECB5CC28ED40D30004F9F7 /* AppDelegate.swift in Sources */,
 				BCECB60128ED69C40004F9F7 /* DetailView.swift in Sources */,
 				BCF6FFBD28F284A800EBEF0B /* AddRegionViewController.swift in Sources */,
+				BC1ABFE728F3F947000F85D7 /* SettingViewController.swift in Sources */,
 				BC76B8A628EE9672001A9BFB /* WeatherManager.swift in Sources */,
 				BC76B8A428EE95F2001A9BFB /* Weather.swift in Sources */,
 				BCECB5CE28ED40D30004F9F7 /* SceneDelegate.swift in Sources */,
 				BCECB5FE28ED58D00004F9F7 /* UserInfo.swift in Sources */,
+				BC1ABFEA28F3F95B000F85D7 /* SettingView.swift in Sources */,
 				BC76B8A828EE99E4001A9BFB /* ImageCacheManager.swift in Sources */,
 				BCECB60528ED720A0004F9F7 /* PageViewController.swift in Sources */,
 				BCF6FFC028F2867400EBEF0B /* AddRegionTableViewCell.swift in Sources */,

@@ -4,7 +4,7 @@ import RealmSwift
 import SnapKit
 
 final class ListViewController: UIViewController, CLLocationManagerDelegate  {
-
+    
     // MARK: Properties
     //
     static var isChangeRegion = false
@@ -18,21 +18,19 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
     // MARK: Views
     //
     private let alert = UIAlertController(title: "경고", message: "지역이 1개일 때는 삭제할 수 없습니다.", preferredStyle: UIAlertController.Style.alert)
-    private let plusBtn = UIImageView(image: UIImage (systemName: "plus"))
-    private let setBtn = UIImageView(image: UIImage (systemName: "gearshape"))
     private var dataViewControllers: [UIViewController] = []
     var tableView: UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     // MARK: Life Cycle
     //
+        override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+        }
     override func viewWillAppear(_ animated: Bool) {
-        print("!!!! viewWillAppear")
-        plusBtn.isHidden = false
-        setBtn.isHidden = false
         if ListViewController.isChangeRegion {
             print("@@@@ viewWillAppear")
             ListViewController.isChangeRegion = false
@@ -40,10 +38,10 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
             tableView.delegate = self
             tableView.dataSource = self
             self.tableView.reloadData()
-
+            
             weatherModelList.removeAll()
             dataViewControllers.removeAll()
-
+            
             let realmDatas = RealmManager.shared.realm.objects(Region.self)
             for cityName in realmDatas {
                 let cityName = cityName.name
@@ -67,7 +65,7 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
             }
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -90,7 +88,6 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-        print("@@@@ RealmManager.shared.realm.objects(Region.self) \(RealmManager.shared.realm.objects(Region.self).count)")
         let realmDatas = RealmManager.shared.realm.objects(Region.self)
         for cityName in realmDatas {
             let cityName = cityName.name
@@ -99,7 +96,7 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
                     switch result {
                     case .success(let weatherValue):
                         self.weatherModelList.append(weatherValue)
-
+                        
                         DispatchQueue.main.async {
                             let detailVC = DetailViewController()
                             detailVC.weatherModel = weatherValue
@@ -117,47 +114,18 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: {_ in }))
     }
     private func setNavigationBarTitle() {
-        guard let navigationBar = self.navigationController?.navigationBar else { return }
         self.title = "전국 날씨"
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .black
         self.navigationController!.navigationBar.standardAppearance = appearance;
         self.navigationController!.navigationBar.scrollEdgeAppearance = self.navigationController!.navigationBar.standardAppearance
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        navigationBar.addSubview(plusBtn)
-        navigationBar.addSubview(setBtn)
-        
-        plusBtn.layer.cornerRadius = Const.ImageSizeForLargeState / 2
-        plusBtn.clipsToBounds = true
-        plusBtn.translatesAutoresizingMaskIntoConstraints = false
-        let addRegionTapGesture = UITapGestureRecognizer(target: self, action: #selector(navigationAddRegionView))
-        plusBtn.addGestureRecognizer(addRegionTapGesture)
-        plusBtn.isUserInteractionEnabled = true
-        
-        setBtn.layer.cornerRadius = Const.ImageSizeForLargeState / 2
-        setBtn.clipsToBounds = true
-        setBtn.translatesAutoresizingMaskIntoConstraints = false
-        let settingTapGesture = UITapGestureRecognizer(target: self, action: #selector(navigationSettingView))
-        setBtn.addGestureRecognizer(settingTapGesture)
-        setBtn.isUserInteractionEnabled = true
-        
-        NSLayoutConstraint.activate([
-            plusBtn.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -Const.ImageRightMargin),
-            plusBtn.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -Const.ImageBottomMarginForLargeState),
-            plusBtn.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState - 10),
-            plusBtn.widthAnchor.constraint(equalTo: plusBtn.heightAnchor),
-            
-            setBtn.rightAnchor.constraint(equalTo: navigationBar.rightAnchor, constant: -Const.ImageRightMargin * 4.5),
-            setBtn.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -Const.ImageBottomMarginForLargeState),
-            setBtn.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState - 10),
-            setBtn.widthAnchor.constraint(equalTo: plusBtn.heightAnchor)
-        ])
+        let plusButton   = UIBarButtonItem(image: UIImage (systemName: "plus"),  style: .plain, target: self, action: #selector(navigationAddRegionView))
+        let setButton = UIBarButtonItem(image: UIImage (systemName: "gearshape"),  style: .plain, target: self, action: #selector(navigationSettingView))
+        navigationItem.rightBarButtonItems = [setButton, plusButton]
     }
     private func navigationDetailView(_ tapIndex: Int) {
-        plusBtn.isHidden = true
-        setBtn.isHidden = true
         let pageVC = PageViewController()
         pageVC.startIndex = tapIndex
         pageVC.dataViewControllers = self.dataViewControllers
@@ -165,15 +133,12 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         self.present(pageVC, animated: false)
     }
     @objc func navigationAddRegionView() {
-        plusBtn.isHidden = true
-        setBtn.isHidden = true
         let addRegionViewController = AddRegionViewController()
         self.navigationController?.pushViewController(addRegionViewController, animated: true)
     }
     @objc func navigationSettingView() {
-        plusBtn.isHidden = true
-        setBtn.isHidden = true
-        print("navigationSettingView")
+        let settingViewController = SettingViewController()
+        self.navigationController?.pushViewController(settingViewController, animated: true)
     }
 }
 
@@ -197,9 +162,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         return "삭제"
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        print("@@@@ \(RealmManager.shared.realm.objects(Region.self).count)")
+        //        print("@@@@ \(RealmManager.shared.realm.objects(Region.self).count)")
         return RealmManager.shared.realm.objects(Region.self).count
-       }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.reuseIdentifier, for: indexPath)

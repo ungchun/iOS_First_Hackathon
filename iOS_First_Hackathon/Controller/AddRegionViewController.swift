@@ -18,6 +18,8 @@ class AddRegionViewController: UIViewController {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.largeTitleDisplayMode = .never
+        view.backgroundColor = .systemBackground
         view.addSubview(tableView)
         tableView.register(CheckboxCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
@@ -26,8 +28,13 @@ class AddRegionViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60).isActive = true
+        
+
+//        tableView.contentInset = UIEdgeInsets(top: -36, left: 0, bottom: 0, right: 0);
+//        self.automaticallyAdjustsScrollViewInsets = false;
+//        tableView.contentInsetAdjustmentBehavior = .never
         
         let realmDatas = RealmManager.shared.realm.objects(Region.self)
         for cityName in realmDatas {

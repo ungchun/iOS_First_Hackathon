@@ -87,7 +87,6 @@ class ListTableViewCell: UITableViewCell {
     private lazy var backgroundImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.borderWidth = 1
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         return imageView
@@ -135,7 +134,6 @@ class ListTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-//        print("@@@@ prepareForReuse")
         activityIndicatorView.startAnimating()
         stackView.isHidden = true
         cityStackView.isHidden = true
