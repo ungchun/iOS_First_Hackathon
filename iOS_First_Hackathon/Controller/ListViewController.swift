@@ -53,6 +53,7 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
                             DispatchQueue.main.async {
                                 let detailVC = DetailViewController()
                                 detailVC.weatherModel = weatherValue
+                                detailVC.myRegionCheck = false
                                 detailVC.receivedModel(weatherModel: weatherValue)
                                 self.dataViewControllers.append(detailVC)
                                 self.tableView.reloadData()
@@ -100,10 +101,11 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
                         DispatchQueue.main.async {
                             let detailVC = DetailViewController()
                             detailVC.weatherModel = weatherValue
+                            detailVC.myRegionCheck = false
                             detailVC.receivedModel(weatherModel: weatherValue)
                             self.dataViewControllers.append(detailVC)
                             self.tableView.reloadData()
-                            print("@@@@ \(self.dataViewControllers.count)")
+                            print("???? \(weatherValue)")
                         }
                     case .failure(let networkError):
                         print("@@@@ \(networkError) \(cityName)")

@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 import RealmSwift
 
 final class PageViewController: UIViewController {
@@ -8,11 +9,13 @@ final class PageViewController: UIViewController {
     var currentIndex: Int?
     var pendingIndex: Int?
     var startIndex: Int?
+    let status = CLLocationManager().authorizationStatus
     
     // MARK: Views
     //
     private let toolbar = UIToolbar()
     var dataViewControllers: [UIViewController]!
+    let detailVC = DetailViewController()
     
     lazy var pageViewController: UIPageViewController = {
         let vc = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -42,6 +45,9 @@ final class PageViewController: UIViewController {
     //
     private func setupView() {
         guard let dataViewControllers else { return }
+        
+        checkMyRegion()
+        
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         
@@ -73,15 +79,38 @@ final class PageViewController: UIViewController {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: self, action: nil)
         fixedSpace.width = 6
-        let toolbarItemMap = UIBarButtonItem(image: UIImage(systemName: "map"), style: .plain, target: self, action: nil)
+        let toolbarItemMap = UIBarButtonItem(image: UIImage(systemName: "map"), style: .plain, target: self, action: #selector(goToTheMyRegion))
         toolbarItemMap.tintColor = .white
         let toolbarItemList = UIBarButtonItem(image: UIImage(systemName: "list.dash"), style: .plain, target: self, action: #selector(goToTheList))
         toolbarItemList.tintColor = .white
         let pageControl = UIBarButtonItem(customView: pageControl)
         toolbar.setItems([fixedSpace, toolbarItemMap, flexibleSpace, pageControl, flexibleSpace, toolbarItemList, fixedSpace], animated: true)
     }
+    private func checkMyRegion() {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            WeatherManager(cityName: "Daegu").getWeatherWithLocation { result in
+                switch result {
+                case .success(let weatherValue):
+                    self.detailVC.weatherModel = weatherValue
+                    self.detailVC.myRegionCheck = true
+                    self.detailVC.receivedModel(weatherModel: weatherValue)
+                    print("???? \(weatherValue)")
+                case .failure(let networkError):
+                    print("\(networkError)")
+                }
+            }
+        }
+    }
+    @objc private func goToTheMyRegion() {
+        print("?????? goToTheMyRegion")
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            print("if if \(self.detailVC)")
+            self.present(self.detailVC, animated: true)
+        } else {
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        }
+    }
     @objc private func goToTheList(sender: UIBarButtonItem) {
-        print("goToTheList")
         self.dismiss(animated: false)
     }
 }

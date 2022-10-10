@@ -7,6 +7,7 @@ class DetailView: UIView {
     // MARK: Properties
     //
     var detailCityWeatherModel: WeatherModel?
+    var myRegionCheck: Bool?
     
     // MARK: Views
     //
@@ -319,9 +320,10 @@ class DetailView: UIView {
     
     // MARK: init
     //
-    required init(frame: CGRect, detailCityWeatherModel: WeatherModel) {
+    required init(frame: CGRect, detailCityWeatherModel: WeatherModel, myRegionCheck: Bool) {
         super.init(frame: frame)
         self.detailCityWeatherModel = detailCityWeatherModel // 도시 정보를 담은 model
+        self.myRegionCheck = myRegionCheck
         
         setBackgroundView()
         setCityData()
@@ -431,7 +433,7 @@ class DetailView: UIView {
     func setCityData() {
         
         // 도시이름
-        koreaCityNameLabel.text = String(describing: CityKoreaListDic.filter {$0.keys.contains(detailCityWeatherModel!.name)}.first!.first!.value)
+        koreaCityNameLabel.text = myRegionCheck! ? "나의 위치 \(detailCityWeatherModel!.name)" :String(describing: CityKoreaListDic.filter {$0.keys.contains(detailCityWeatherModel!.name)}.first!.first!.value)
 //        koreaCityNameLabel.text = "대구"
         
         // 현재온도
