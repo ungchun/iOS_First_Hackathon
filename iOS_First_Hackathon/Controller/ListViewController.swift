@@ -30,6 +30,9 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
     // MARK: Life Cycle
     //
     override func viewWillAppear(_ animated: Bool) {
+        print("!!!! viewWillAppear")
+        plusBtn.isHidden = false
+        setBtn.isHidden = false
         if ListViewController.isChangeRegion {
             print("@@@@ viewWillAppear")
             ListViewController.isChangeRegion = false
@@ -64,6 +67,7 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
             }
         }
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -152,6 +156,8 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         ])
     }
     private func navigationDetailView(_ tapIndex: Int) {
+        plusBtn.isHidden = true
+        setBtn.isHidden = true
         let pageVC = PageViewController()
         pageVC.startIndex = tapIndex
         pageVC.dataViewControllers = self.dataViewControllers
@@ -159,10 +165,14 @@ final class ListViewController: UIViewController, CLLocationManagerDelegate  {
         self.present(pageVC, animated: false)
     }
     @objc func navigationAddRegionView() {
+        plusBtn.isHidden = true
+        setBtn.isHidden = true
         let addRegionViewController = AddRegionViewController()
         self.navigationController?.pushViewController(addRegionViewController, animated: true)
     }
     @objc func navigationSettingView() {
+        plusBtn.isHidden = true
+        setBtn.isHidden = true
         print("navigationSettingView")
     }
 }
