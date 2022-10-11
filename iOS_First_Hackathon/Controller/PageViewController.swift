@@ -96,7 +96,8 @@ final class PageViewController: UIViewController {
     
     private func checkMyRegion() {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
-            WeatherManager(cityName: "Daegu").getWeatherWithLocation { result in
+            WeatherManager(cityName: "Daegu").getWeatherWithLocation { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let weatherValue):
                     self.detailVC.weatherModel = weatherValue
@@ -111,8 +112,7 @@ final class PageViewController: UIViewController {
     
     @objc private func goToTheMyRegion() {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
-            print("if if \(self.detailVC)")
-            self.present(self.detailVC, animated: true)
+            self.present(detailVC, animated: true)
         } else {
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
         }
