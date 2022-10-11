@@ -103,8 +103,8 @@
 			children = (
 				BC1ABFF328F41649000F85D7 /* Scene.swift */,
 				BC1ABFF528F41856000F85D7 /* rain.sks */,
-				BC1ABFF628F41856000F85D7 /* Assets.xcassets */,
 				BC1ABFF928F41867000F85D7 /* snow.sks */,
+				BC1ABFF628F41856000F85D7 /* Assets.xcassets */,
 			);
 			path = Sprite;
 			sourceTree = "<group>";

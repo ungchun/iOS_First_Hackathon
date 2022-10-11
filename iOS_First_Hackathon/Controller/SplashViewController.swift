@@ -43,9 +43,9 @@ final class SplashViewController: UIViewController {
         let ud = UserDefaults.standard
         if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
             UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
-//            let region = Region()
-//            region.name = "Daegu"
-//            RealmManager.shared.create(region)
+            let region = Region()
+            region.name = "Daegu"
+            RealmManager.shared.create(region)
 //
 //            let region2 = Region()
 //            region2.name = "Seoul"

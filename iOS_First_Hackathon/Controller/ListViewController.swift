@@ -153,7 +153,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 if let userinfo = RealmManager.shared.realm.objects(Region.self).filter(NSPredicate(format: "name = %@", weatherModelList[indexPath.row].name)).first {
                     RealmManager.shared.delete(userinfo)
-                    
+                    dataViewControllers.remove(at: indexPath.row)
                     weatherModelList.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 }
@@ -164,7 +164,6 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         return "삭제"
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        print("@@@@ \(RealmManager.shared.realm.objects(Region.self).count)")
         return RealmManager.shared.realm.objects(Region.self).count
     }
     
