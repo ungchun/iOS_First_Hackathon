@@ -8,18 +8,14 @@ final class SplashViewController: UIViewController {
     
     // MARK: Properties
     //
-    let CityList = [
-        "Gongju", "Gwangju", "Gumi", "Gunsan", "Daegu", "Daejeon",
-        "Mokpo", "Busan", "Seoul", "Sokcho", "Suwon-si", "Iksan", "Suncheon",
-        "Ulsan", "Jeonju", "Cheonan", "Cheongju-si", "Chuncheon"
-    ]
     var locationManager: CLLocationManager?
-    var currentLocation: CLLocationCoordinate2D!
+    var currentLocation: CLLocationCoordinate2D?
     
     // MARK: Views
     //
     private let lottieAnimationView: AnimationView = {
         let lottieView = AnimationView(name: "weather_splash")
+        lottieView.loopMode = .repeat(1)
         lottieView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         return lottieView
     }()
@@ -28,42 +24,17 @@ final class SplashViewController: UIViewController {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
-        let a = RealmManager.shared.realm.objects(Region.self)
-        a.forEach { region in
-            print("@@@@ \(region.name)")
-        }
-        print("@@@@ RealmManager.shared.realm \(RealmManager.shared.realm.objects(Region.self))")
-//        CityList.forEach { value in
-//            let region = Region()
-//            region.name = value
-//            RealmManager.shared.create(region)
-//        }
-//        try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
-
+        view.backgroundColor = .systemBackground
+        
+        addSubviews()
+        makeConstraints()
+        
         let ud = UserDefaults.standard
         if ud.bool(forKey: UserInfo.FirstRunCheckKey) == false {
             UserDefaults.standard.set(true, forKey: UserInfo.FirstRunCheckKey)
             let region = Region()
             region.name = "Daegu"
             RealmManager.shared.create(region)
-//
-//            let region2 = Region()
-//            region2.name = "Seoul"
-//            RealmManager.shared.create(region2)
-        }
-        setupView()
-    }
-    
-    // MARK: functions
-    //
-    private func setupView() {
-        view.addSubview(lottieAnimationView)
-        
-        lottieAnimationView.loopMode = .repeat(1)
-        
-        lottieAnimationView.snp.makeConstraints { make in
-            make.center.equalTo(view)
-            make.width.height.equalTo(300)
         }
         
         lottieAnimationView.play { [weak self] (finish) in
@@ -77,6 +48,18 @@ final class SplashViewController: UIViewController {
             self.present(navEditorViewController, animated: false, completion: nil)
         }
     }
+    
+    // MARK: functions
+    //
+    private func addSubviews() {
+        view.addSubview(lottieAnimationView)
+    }
+    private func makeConstraints() {
+        lottieAnimationView.snp.makeConstraints { make in
+            make.center.equalTo(view)
+            make.width.height.equalTo(300)
+        }
+    }
 }
 
 extension SplashViewController: CLLocationManagerDelegate {
@@ -84,33 +67,46 @@ extension SplashViewController: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse:
-            print("authorizedWhenInUse")
             setMyCoordinate()
             break
         case .authorizedAlways:
-            print("authorizedAlways")
             setMyCoordinate()
             break
         default:
-            print("위치 거절")
             break
         }
     }
     
     private func requestAuthorization() {
         locationManager = CLLocationManager()
-        locationManager!.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager!.requestWhenInUseAuthorization()
-        locationManager!.delegate = self
-        locationManagerDidChangeAuthorization(locationManager!)
+        guard let locationManager else { return }
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        locationManagerDidChangeAuthorization(locationManager)
     }
     
     private func setMyCoordinate() {
-        currentLocation = locationManager!.location?.coordinate
+        guard let locationManager else { return }
+        currentLocation = locationManager.location?.coordinate
+        guard let currentLocation else { return }
         UserInfo.shared.longitude = currentLocation.longitude
         UserInfo.shared.latitude = currentLocation.latitude
-        
-        print("currentLocation.longitude \(currentLocation.longitude)")
-        print("currentLocation.latitude \(currentLocation.latitude)")
+    }
+}
+
+extension SplashViewController {
+    private func testCityInit() {
+        let CityList = [
+            "Gongju", "Gwangju", "Gumi", "Gunsan", "Daegu", "Daejeon",
+            "Mokpo", "Busan", "Seoul", "Sokcho", "Suwon-si", "Iksan", "Suncheon",
+            "Ulsan", "Jeonju", "Cheonan", "Cheongju-si", "Chuncheon"
+        ]
+        CityList.forEach { value in
+            let region = Region()
+            region.name = value
+            RealmManager.shared.create(region)
+        }
+        //        try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
     }
 }

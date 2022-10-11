@@ -1,6 +1,6 @@
 import UIKit
 
-class AddRegionViewController: UIViewController {
+final class AddRegionViewController: UIViewController {
     
     // MARK: Properties
     //
@@ -11,6 +11,7 @@ class AddRegionViewController: UIViewController {
     var tableView: UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.allowsMultipleSelection = true
         return view
     }()
     
@@ -20,22 +21,30 @@ class AddRegionViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .systemBackground
-        view.addSubview(tableView)
-        tableView.register(CheckboxCell.self, forCellReuseIdentifier: "cell")
+        
+        addSubviews()
+        makeConstraints()
+        setupValues()
+    }
+    
+    // MARK: functions
+    //
+    private func addSubviews() {
+        tableView.register(CheckboxCell.self, forCellReuseIdentifier: CheckboxCell.reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.allowsMultipleSelection = true
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(tableView)
+    }
+    
+    private func makeConstraints() {
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
         tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60).isActive = true
-        
-
-//        tableView.contentInset = UIEdgeInsets(top: -36, left: 0, bottom: 0, right: 0);
-//        self.automaticallyAdjustsScrollViewInsets = false;
-//        tableView.contentInsetAdjustmentBehavior = .never
-        
+    }
+    
+    private func setupValues() {
         let realmDatas = RealmManager.shared.realm.objects(Region.self)
         for cityName in realmDatas {
             let cityName = cityName.name
@@ -47,14 +56,14 @@ class AddRegionViewController: UIViewController {
 extension AddRegionViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CityKoreaListDic.count
+        return KoreaCityNameListDic.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? CheckboxCell else { fatalError(#function) }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CheckboxCell.reuseIdentifier) as? CheckboxCell else { fatalError(#function) }
         cell.regionArray = regionArray
-        cell.model = CityKoreaListDic[indexPath.row].values.first
-        cell.koreanModel = CityKoreaListDic[indexPath.row].keys.first
+        cell.model = KoreaCityNameListDic[indexPath.row].values.first
+        cell.koreanModel = KoreaCityNameListDic[indexPath.row].keys.first
         
         return cell
     }
@@ -62,6 +71,7 @@ extension AddRegionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 56
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }

@@ -1,33 +1,32 @@
 import Foundation
 import UIKit
 
-class CheckboxCell: BaseTableViewCell<String> {
+final class CheckboxCell: BaseTableViewCell<String> {
     
     // MARK: Properties
     //
+    static let reuseIdentifier = String(describing: CheckboxCell.self)
     var regionArray: [String]?
     
     // MARK: Views
     //
-    lazy var checkBoxButton: UIButton = {
+    private lazy var checkBoxButton: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        
+        button.addTarget(self, action: #selector(checkBoxTapAction), for: .touchUpInside)
         return button
     }()
-    
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         return label
     }()
     
     // MARK: functions
     //
-    override func bind(_ model: String?, _ koreanModel: String?) {
-        super.bind(model, koreanModel)
-        titleLabel.text = model
+    override func prepareForReuse() {
+        super.prepareForReuse()
         if koreanModel != nil {
-            if RealmManager.shared.realm.objects(Region.self).filter(NSPredicate(format: "name = %@", koreanModel!)).first != nil {
+            guard let koreanModel else { return }
+            if RealmManager.shared.realm.objects(Region.self).filter(NSPredicate(format: "name = %@", koreanModel)).first != nil {
                 checkBoxButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             } else {
                 checkBoxButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
@@ -37,7 +36,6 @@ class CheckboxCell: BaseTableViewCell<String> {
     
     override func configure() {
         super.configure()
-        
         addSubviews()
         makeConstraints()
     }
@@ -60,11 +58,12 @@ class CheckboxCell: BaseTableViewCell<String> {
         titleLabel.centerYAnchor.constraint(equalTo: checkBoxButton.centerYAnchor).isActive = true
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
+    override func bind(_ model: String?, _ koreanModel: String?) {
+        super.bind(model, koreanModel)
+        titleLabel.text = model
         if koreanModel != nil {
-            if RealmManager.shared.realm.objects(Region.self).filter(NSPredicate(format: "name = %@", koreanModel!)).first != nil {
+            guard let koreanModel else { return }
+            if RealmManager.shared.realm.objects(Region.self).filter(NSPredicate(format: "name = %@", koreanModel)).first != nil {
                 checkBoxButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
             } else {
                 checkBoxButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
@@ -72,26 +71,28 @@ class CheckboxCell: BaseTableViewCell<String> {
         }
     }
     
-    @objc func buttonAction() {
-        if regionArray!.contains(self.koreanModel!) {
-            if regionArray!.count > 1 {
-                if let userinfo = RealmManager.shared.realm.objects(Region.self).filter(NSPredicate(format: "name = %@", self.koreanModel!)).first {
+    @objc private func checkBoxTapAction() {
+        guard let regionArray else { return }
+        guard let koreanModel else { return }
+        if regionArray.contains(koreanModel) {
+            if regionArray.count > 1 {
+                if let userinfo = RealmManager.shared.realm.objects(Region.self).filter(NSPredicate(format: "name = %@", koreanModel)).first {
                     RealmManager.shared.delete(userinfo)
                     checkBoxButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
                     
-                    if let index = regionArray!.firstIndex(where: {$0 == self.koreanModel!}) {
-                        regionArray!.remove(at: index)
+                    if let index = regionArray.firstIndex(where: {$0 == koreanModel}) {
+                        self.regionArray!.remove(at: index)
                     }
                 }
                 ListViewController.isChangeRegion = true
             }
         } else {
             let regin = Region()
-            regin.name = self.koreanModel!
+            regin.name = koreanModel
             RealmManager.shared.create(regin)
             
             checkBoxButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
-            regionArray?.append(self.koreanModel!)
+            self.regionArray!.append(koreanModel)
             ListViewController.isChangeRegion = true
         }
     }

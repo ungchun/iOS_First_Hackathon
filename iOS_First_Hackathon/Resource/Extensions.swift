@@ -32,3 +32,15 @@ extension UIImageView {
         }
     }
 }
+
+extension UIView {
+    func removeAllSubviews() { // subView 전체 삭제
+        subviews.forEach { $0.removeFromSuperview() }
+    }
+    
+    func removeAllSubviews<T: UIView>(type: T.Type) { // 원하는 type의 subView만 삭제
+        subviews
+            .filter { $0.isMember(of: type) }
+            .forEach { $0.removeFromSuperview() }
+    }
+}

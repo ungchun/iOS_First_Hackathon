@@ -20,7 +20,9 @@ final class DetailViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let detailView = DetailView(frame: self.view.frame, detailCityWeatherModel: weatherModel!, myRegionCheck: myRegionCheck!)
+        guard let weatherModel else { return }
+        guard let myRegionCheck else { return }
+        let detailView = DetailView(frame: self.view.frame, detailCityWeatherModel: weatherModel, myRegionCheck: myRegionCheck)
         self.detailView = detailView
         self.view.addSubview(detailView)
     }

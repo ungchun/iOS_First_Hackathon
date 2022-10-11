@@ -7,7 +7,7 @@ enum NetworkError: Error {
     case decodingError
 }
 
-class WeatherManager {
+final class WeatherManager {
     
     let cityName: String
     
@@ -15,13 +15,12 @@ class WeatherManager {
         self.cityName = cityName
     }
     
-    func getWeather(completion: @escaping (Result<WeatherModel, NetworkError>) -> Void) {
+    func getWeatherWithCityName(completion: @escaping (Result<WeatherModel, NetworkError>) -> Void) {
         
         guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String else { return }
-
-        // API 호출을 위한 URL
+        
         let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?appid=\(apiKey)&q=\(cityName)&units=metric")
-
+        
         guard let url = url else {
             return completion(.failure(.badUrl))
         }
@@ -32,7 +31,7 @@ class WeatherManager {
             }
             
             let weatherResponse = try? JSONDecoder().decode(WeatherModel.self, from: data)
-
+            
             if let weatherResponse = weatherResponse {
                 print(weatherResponse)
                 completion(.success(weatherResponse))
@@ -42,12 +41,13 @@ class WeatherManager {
             }
         }.resume()
     }
+    
     func getWeatherWithLocation(completion: @escaping (Result<WeatherModel, NetworkError>) -> Void) {
         
         guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String else { return }
-    
+        
         let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(UserInfo.shared.latitude!)&lon=\(UserInfo.shared.longitude!)&appid=\(apiKey)&units=metric")
-
+        
         guard let url = url else {
             return completion(.failure(.badUrl))
         }
@@ -58,7 +58,7 @@ class WeatherManager {
             }
             
             let weatherResponse = try? JSONDecoder().decode(WeatherModel.self, from: data)
-
+            
             if let weatherResponse = weatherResponse {
                 print(weatherResponse)
                 completion(.success(weatherResponse))

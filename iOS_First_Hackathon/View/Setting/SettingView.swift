@@ -4,10 +4,6 @@ import UIKit
 
 final class SettingView: UIView {
     
-    // MARK: Preperties
-    //
-    let status = CLLocationManager().authorizationStatus
-    
     // MARK: Views
     //
     private let locationCheckText: UILabel = {
@@ -51,13 +47,28 @@ final class SettingView: UIView {
     //
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubviews()
+        setupViews()
+        makeConstraints()
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: functions
+    //
+    private func addSubviews() {
         self.addSubview(allContentStackView)
-        
-        locationCheckText.text = status == .authorizedAlways || status == .authorizedWhenInUse ? "위치정보 사용 중" : "위치정보 사용 안함"
+    }
+    
+    private func setupViews() {
+        locationCheckText.text = UserInfo.shared.locationAuthStatus == .authorizedAlways || UserInfo.shared.locationAuthStatus == .authorizedWhenInUse ? "위치정보 사용 중" : "위치정보 사용 안함"
         inquiryText.text = "문의하기"
         InformationText.text = "개인 정보 처리 방침"
         developerName.text = "developer Dal"
-        
+    }
+    
+    private func makeConstraints() {
         NSLayoutConstraint.activate([
             divider.widthAnchor.constraint(equalToConstant: 10),
             divider.heightAnchor.constraint(equalToConstant: 1),
@@ -65,9 +76,5 @@ final class SettingView: UIView {
             allContentStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             allContentStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

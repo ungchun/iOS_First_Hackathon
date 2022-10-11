@@ -13,15 +13,15 @@ final class PageViewController: UIViewController {
     
     // MARK: Views
     //
+    var dataViewControllers: [UIViewController]?
+    private let detailVC = DetailViewController()
     private let toolbar = UIToolbar()
-    var dataViewControllers: [UIViewController]!
-    let detailVC = DetailViewController()
     
-    lazy var pageViewController: UIPageViewController = {
+    private lazy var pageViewController: UIPageViewController = {
         let vc = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         return vc
     }()
-    lazy var pageControl: UIPageControl = {
+    private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.currentPageIndicatorTintColor = .white
         pageControl.pageIndicatorTintColor = .white.withAlphaComponent(0.5)
@@ -38,22 +38,22 @@ final class PageViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        
+        checkMyRegion()
+        addSubviews()
+        makeConstraints()
+        setupViews()
     }
     
     // MARK: functions
     //
-    private func setupView() {
-        guard let dataViewControllers else { return }
-        
-        checkMyRegion()
-        
+    private func addSubviews() {
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
-        
-        pageViewController.view.snp.makeConstraints { make in
-            make.leading.trailing.top.bottom.equalToSuperview()
-        }
+    }
+    
+    private func setupViews() {
+        guard let dataViewControllers else { return }
         pageViewController.didMove(toParent: self)
         pageViewController.dataSource = self
         pageViewController.delegate = self
@@ -64,6 +64,13 @@ final class PageViewController: UIViewController {
         
         setupToolbar()
     }
+    
+    private func makeConstraints() {
+        pageViewController.view.snp.makeConstraints { make in
+            make.leading.trailing.top.bottom.equalToSuperview()
+        }
+    }
+    
     private func setupToolbar() {
         let toolbar = UIToolbar()
         view.addSubview(toolbar)
@@ -86,6 +93,7 @@ final class PageViewController: UIViewController {
         let pageControl = UIBarButtonItem(customView: pageControl)
         toolbar.setItems([fixedSpace, toolbarItemMap, flexibleSpace, pageControl, flexibleSpace, toolbarItemList, fixedSpace], animated: true)
     }
+    
     private func checkMyRegion() {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
             WeatherManager(cityName: "Daegu").getWeatherWithLocation { result in
@@ -94,15 +102,14 @@ final class PageViewController: UIViewController {
                     self.detailVC.weatherModel = weatherValue
                     self.detailVC.myRegionCheck = true
                     self.detailVC.receivedModel(weatherModel: weatherValue)
-                    print("???? \(weatherValue)")
                 case .failure(let networkError):
                     print("\(networkError)")
                 }
             }
         }
     }
+    
     @objc private func goToTheMyRegion() {
-        print("?????? goToTheMyRegion")
         if status == .authorizedAlways || status == .authorizedWhenInUse {
             print("if if \(self.detailVC)")
             self.present(self.detailVC, animated: true)
@@ -110,6 +117,7 @@ final class PageViewController: UIViewController {
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
         }
     }
+    
     @objc private func goToTheList(sender: UIBarButtonItem) {
         self.dismiss(animated: false)
     }
@@ -118,7 +126,7 @@ final class PageViewController: UIViewController {
 extension PageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        
+        guard let dataViewControllers else { return nil }
         guard let index = dataViewControllers.firstIndex(of: viewController) else { return nil }
         let previousIndex = index - 1
         if previousIndex < 0 {
@@ -128,7 +136,7 @@ extension PageViewController: UIPageViewControllerDataSource {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
+        guard let dataViewControllers else { return nil }
         guard let index = dataViewControllers.firstIndex(of: viewController) else { return nil }
         let nextIndex = index + 1
         if nextIndex == dataViewControllers.count {
@@ -141,6 +149,7 @@ extension PageViewController: UIPageViewControllerDataSource {
 extension PageViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        guard let dataViewControllers else { return }
         pendingIndex = dataViewControllers.firstIndex(of: pendingViewControllers.first!)
     }
     

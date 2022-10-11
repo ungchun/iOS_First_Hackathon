@@ -1,10 +1,7 @@
 import Foundation
 import RealmSwift
 
-class RealmManager {
-    // realm db 삭제
-    //     try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
-    
+final class RealmManager {
     private init() {}
     static let shared = RealmManager()
     

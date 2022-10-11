@@ -1,10 +1,12 @@
 import Foundation
+import CoreLocation
 
-class UserInfo {
+final class UserInfo {
     
     static let FirstRunCheckKey = "FirstRunCheckKey"
     
     static var shared = UserInfo()
     var longitude:Double!
     var latitude:Double!
+    var locationAuthStatus = CLLocationManager().authorizationStatus
 }

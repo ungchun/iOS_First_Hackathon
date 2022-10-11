@@ -1,8 +1,7 @@
 import Foundation
 import SpriteKit
 
-// MARK: SpriteKit
-class SnowScene: SKScene {
+final class SnowScene: SKScene {
     
     override func didMove(to view: SKView) {
         setScene(view)
@@ -27,10 +26,9 @@ class SnowScene: SKScene {
     }
 }
 
-class RainScene: SKScene {
+final class RainScene: SKScene {
     
     override func didMove(to view: SKView) {
-        print("???? didMove")
         setScene(view)
         setRainNode()
     }
